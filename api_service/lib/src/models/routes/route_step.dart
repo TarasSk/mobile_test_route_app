@@ -5,9 +5,9 @@ part 'route_step.freezed.dart';
 part 'route_step.g.dart';
 
 @freezed
-class RouteStep with _$RouteStep {
+abstract class RouteStep with _$RouteStep {
   const factory RouteStep({
-    required String direction,
+    required String? direction,
     required Location location,
   }) = _RouteStep;
 

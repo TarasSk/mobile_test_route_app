@@ -5,7 +5,7 @@ part 'route.freezed.dart';
 part 'route.g.dart';
 
 @freezed
-class Route with _$Route {
+abstract class Route with _$Route {
   const factory Route({
     required int duration,
     required int distance,

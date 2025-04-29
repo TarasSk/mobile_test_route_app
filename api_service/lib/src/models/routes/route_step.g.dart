@@ -7,7 +7,7 @@ part of 'route_step.dart';
 // **************************************************************************
 
 _RouteStep _$RouteStepFromJson(Map<String, dynamic> json) => _RouteStep(
-      direction: json['direction'] as String,
+      direction: json['direction'] as String?,
       location: Location.fromJson(json['location'] as Map<String, dynamic>),
     );
 
