@@ -1,6 +1,4 @@
 import 'package:api_service/api_service.dart';
-import 'package:api_service/src/models/routes/route.dart';
-import 'package:api_service/src/models/weather/weather.dart';
 import 'package:dio/dio.dart';
 
 class Api {
@@ -58,11 +56,11 @@ class Api {
 
     try {
       final response = await _dio.get(
-        'api/Weather/${Uri.encodeComponent(lat.toString())}/${Uri.encodeComponent(lng.toString())}',
+        '/api/Weather/${Uri.encodeComponent(lat.toString())}/${Uri.encodeComponent(lng.toString())}',
       );
 
       return Response<Weather>(
-        data: response.data,
+        data: Weather.fromJson(response.data),
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
         requestOptions: response.requestOptions,
