@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:api_service/api_service.dart' as api_service;
+import 'package:mobile_test/src/application/di/injection_container.dart' as di;
+import 'package:mobile_test/src/features/route/domain/entities/route_entity.dart';
+import 'package:mobile_test/src/features/route/domain/entities/route_step_entity.dart';
+import 'package:mobile_test/src/features/route/domain/usecases/route_use_case.dart';
+import 'package:mobile_test/src/features/route/domain/usecases/route_use_case_params.dart';
+import 'package:mobile_test/src/features/weather/domain/entities/weather_entity.dart';
+import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_case.dart';
+import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_case_params.dart';
 
 // DEBUG PAGE
 // This page is used for debugging purposes only.
@@ -49,21 +56,24 @@ class DebugPage extends StatelessWidget {
     );
   }
 
-  Future<
-      (
-        api_service.Route,
-        List<(api_service.RouteStep, api_service.Weather)>
-      )> _get() async {
-    final api = api_service.Api();
-    final route = await api.getRoute(from: 'New York', to: 'Los Angeles');
-    if (route.data != null) {
-      List<(api_service.RouteStep, api_service.Weather)> weatherForStep = [];
-      for (var step in route.data!.steps) {
-        final weather = await api.getWeather(
-            lat: step.location.lat, lng: step.location.lng);
-        weatherForStep.add((step, weather.data!));
+  Future<(RouteEntity, List<(RouteStepEntity, WeatherEntity)>)> _get() async {
+    final routeUsecase = di.injector<RouteUseCase>();
+    final weatherUsecase = di.injector<WeatherUseCase>();
+    final route = await routeUsecase
+        .call(RouteUseCaseParams(from: 'London', to: 'Paris'));
+
+    if (route.steps.isNotEmpty) {
+      List<(RouteStepEntity, WeatherEntity)> weatherForStep = [];
+      for (var step in route.steps) {
+        final weather = await weatherUsecase.call(
+          WeatherUseCaseParams(
+            lat: step.location.lat,
+            lng: step.location.lng,
+          ),
+        );
+        weatherForStep.add((step, weather));
       }
-      return (route.data!, weatherForStep);
+      return (route, weatherForStep);
     } else {
       throw Exception('Route data is null');
     }
