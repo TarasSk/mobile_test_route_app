@@ -1,7 +1,11 @@
 import 'package:api_service/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/web.dart';
+import 'package:mobile_test/src/application/bloc/global_bloc_observer.dart';
+import 'package:mobile_test/src/application/logger/logger.dart';
 import 'package:mobile_test/src/features/route/data/converters/location_entity_convertor.dart';
 import 'package:mobile_test/src/features/route/data/converters/route_entity_converter.dart';
 import 'package:mobile_test/src/features/route/data/converters/route_step_entity_convertor.dart';
@@ -16,11 +20,19 @@ import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_cas
 final injector = GetIt.instance;
 
 void init() {
+  _registerCoreDependency();
   _registerApi();
   _registerConvertorers();
   _registerRepositories();
   _registerUseCases();
   _registerBlocs();
+}
+
+void _registerCoreDependency() {
+  injector.registerLazySingleton<Logger>(() => logger);
+  injector.registerLazySingleton<BlocObserver>(
+    () => GlobalBlocObserver(logger: logger),
+  );
 }
 
 void _registerApi() {
@@ -73,7 +85,7 @@ void _registerRepositories() {
 }
 
 void _registerUseCases() {
-injector.registerFactory<RouteUseCase>(
+  injector.registerFactory<RouteUseCase>(
     () => RouteUseCase(
       repository: injector(),
     ),

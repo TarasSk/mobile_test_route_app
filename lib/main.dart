@@ -1,30 +1,21 @@
 
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_test/debug_page.dart';
+import 'package:logger/logger.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+import 'package:mobile_test/src/application/application.dart';
+import 'package:mobile_test/src/application/di/injection_container.dart' as di;
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
-
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-
-  @override
-  void initState() {
-   super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: const DebugPage(),
-    );
-  }
-
+Future<void> main() async {
+    await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    di.init();
+    Bloc.observer = di.injector<BlocObserver>();
+    runApp(const Application());
+  }, (error, stackTrace) {
+    final logger = di.injector<Logger>();
+    logger.f('Main fatal error',error: error,stackTrace: stackTrace);
+  });
 }
