@@ -1,4 +1,4 @@
-import 'package:mobile_test/core/use_case_params.dart';
+import 'package:mobile_test/src/core/use_case_params.dart';
 
 class RouteUseCaseParams extends BaseParams {
   RouteUseCaseParams({

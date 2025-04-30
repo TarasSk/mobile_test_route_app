@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$RouteStepEntity {
-  String? get direction;
+  String get direction;
   LocationEntity get location;
 
   /// Create a copy of RouteStepEntity
@@ -52,7 +52,7 @@ abstract mixin class $RouteStepEntityCopyWith<$Res> {
           RouteStepEntity value, $Res Function(RouteStepEntity) _then) =
       _$RouteStepEntityCopyWithImpl;
   @useResult
-  $Res call({String? direction, LocationEntity location});
+  $Res call({String direction, LocationEntity location});
 
   $LocationEntityCopyWith<$Res> get location;
 }
@@ -70,14 +70,14 @@ class _$RouteStepEntityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? direction = freezed,
+    Object? direction = null,
     Object? location = null,
   }) {
     return _then(_self.copyWith(
-      direction: freezed == direction
+      direction: null == direction
           ? _self.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       location: null == location
           ? _self.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ class _RouteStepEntity implements RouteStepEntity {
   const _RouteStepEntity({required this.direction, required this.location});
 
   @override
-  final String? direction;
+  final String direction;
   @override
   final LocationEntity location;
 
@@ -142,7 +142,7 @@ abstract mixin class _$RouteStepEntityCopyWith<$Res>
       __$RouteStepEntityCopyWithImpl;
   @override
   @useResult
-  $Res call({String? direction, LocationEntity location});
+  $Res call({String direction, LocationEntity location});
 
   @override
   $LocationEntityCopyWith<$Res> get location;
@@ -161,14 +161,14 @@ class __$RouteStepEntityCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? direction = freezed,
+    Object? direction = null,
     Object? location = null,
   }) {
     return _then(_RouteStepEntity(
-      direction: freezed == direction
+      direction: null == direction
           ? _self.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       location: null == location
           ? _self.location
           : location // ignore: cast_nullable_to_non_nullable

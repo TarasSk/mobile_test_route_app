@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:api_service/api_service.dart';
-import 'package:mobile_test/core/utils/converter.dart';
-import 'package:mobile_test/features/route/data/converters/route_step_entity_convertor.dart';
-import 'package:mobile_test/features/route/domain/entities/route_entity.dart';
+import 'package:mobile_test/src/core/utils/converter.dart';
+import 'package:mobile_test/src/features/route/data/converters/route_step_entity_convertor.dart';
+import 'package:mobile_test/src/features/route/domain/entities/route_entity.dart';
 
 class RouteEntityConverter extends Converter<Route, RouteEntity> {
   const RouteEntityConverter(
@@ -11,7 +11,7 @@ class RouteEntityConverter extends Converter<Route, RouteEntity> {
       : _routeStepEntityConvertor = routeStepEntityConvertor;
 
   final RouteStepEntityConvertor _routeStepEntityConvertor;
-  
+
   @override
   RouteEntity convert(Route input) {
     return RouteEntity(

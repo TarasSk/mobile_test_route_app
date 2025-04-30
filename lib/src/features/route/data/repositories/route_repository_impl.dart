@@ -1,7 +1,7 @@
 import 'package:api_service/api_service.dart';
-import 'package:mobile_test/features/route/data/converters/route_entity_converter.dart';
-import 'package:mobile_test/features/route/domain/entities/route_entity.dart';
-import 'package:mobile_test/features/route/domain/repositories/route_repository.dart';
+import 'package:mobile_test/src/features/route/data/converters/route_entity_converter.dart';
+import 'package:mobile_test/src/features/route/domain/entities/route_entity.dart';
+import 'package:mobile_test/src/features/route/domain/repositories/route_repository.dart';
 
 class RouteRepositoryImpl implements RouteRepository {
   RouteRepositoryImpl({

@@ -1,4 +1,4 @@
-import 'package:mobile_test/core/use_case_params.dart';
+import 'package:mobile_test/src/core/use_case_params.dart';
 
 /// The base class for use cases which return type [Future]
 ///
