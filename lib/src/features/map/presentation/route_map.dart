@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mobile_test/src/features/map/presentation/route_selector.dart';
+
+class RouteMap extends StatelessWidget {
+  const RouteMap({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      FlutterMap(
+        options: MapOptions(),
+        children: [
+          TileLayer(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+            userAgentPackageName: 'com.example.app',
+          ),
+        ],
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: RouteSelectorWidget(),
+        ),
+      ),
+    ]);
+  }
+}
