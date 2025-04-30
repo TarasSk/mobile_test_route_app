@@ -1,32 +1,89 @@
-import 'dart:async';
-
+import 'package:api_service/api_service.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobile_test/src/features/route/data/converters/location_entity_convertor.dart';
+import 'package:mobile_test/src/features/route/data/converters/route_entity_converter.dart';
+import 'package:mobile_test/src/features/route/data/converters/route_step_entity_convertor.dart';
+import 'package:mobile_test/src/features/route/data/repositories/route_repository_impl.dart';
+import 'package:mobile_test/src/features/route/domain/repositories/route_repository.dart';
+import 'package:mobile_test/src/features/route/domain/usecases/route_use_case.dart';
+import 'package:mobile_test/src/features/weather/data/converters/weather_entity_converter.dart';
+import 'package:mobile_test/src/features/weather/data/repositories/weather_repository_impl.dart';
+import 'package:mobile_test/src/features/weather/domain/repositories/weather_repository.dart';
+import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_case.dart';
 
 final injector = GetIt.instance;
 
-void init()  {
+void init() {
   _registerApi();
-  _registerRepositories();
   _registerConvertorers();
+  _registerRepositories();
   _registerUseCases();
   _registerBlocs();
 }
 
 void _registerApi() {
-  // Register your API classes here
-  // Example: injector.registerLazySingleton<YourApi>(() => YourApiImpl());
+  injector.registerLazySingleton(
+    () => Api(
+      dio: Dio(
+        BaseOptions(
+          baseUrl: 'https://scrmobiletest.azurewebsites.net',
+          connectTimeout:
+              kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+          receiveTimeout:
+              kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+        ),
+      ),
+    ),
+  );
 }
-void _registerRepositories() {
-  // Register your repositories here
-  // Example: injector.registerLazySingleton<YourRepository>(() => YourRepositoryImpl());
-} 
+
 void _registerConvertorers() {
-  // Register your converters here
-  // Example: injector.registerLazySingleton<YourConverter>(() => YourConverterImpl());
+  injector.registerLazySingleton<LocationEntityConvertor>(
+      LocationEntityConvertor.new);
+
+  injector.registerLazySingleton<RouteStepEntityConvertor>(
+    () => RouteStepEntityConvertor(locationEntityConvertor: injector()),
+  );
+
+  injector.registerLazySingleton<RouteEntityConverter>(
+    () => RouteEntityConverter(routeStepEntityConvertor: injector()),
+  );
+
+  injector.registerLazySingleton<WeatherEntityConverter>(
+    WeatherEntityConverter.new,
+  );
 }
+
+void _registerRepositories() {
+  injector.registerFactory<RouteRepository>(
+    () => RouteRepositoryImpl(
+      api: injector(),
+      converter: injector(),
+    ),
+  );
+
+  injector.registerFactory<WeatherRepository>(
+    () => WeatherRepositoryImpl(
+      api: injector(),
+      converter: injector(),
+    ),
+  );
+}
+
 void _registerUseCases() {
-  // Register your use cases here
-  // Example: injector.registerLazySingleton<YourUseCase>(() => YourUseCaseImpl());
+injector.registerFactory<RouteUseCase>(
+    () => RouteUseCase(
+      repository: injector(),
+    ),
+  );
+
+  injector.registerFactory(
+    () => WeatherUseCase(
+      repository: injector(),
+    ),
+  );
 }
 
 void _registerBlocs() {
