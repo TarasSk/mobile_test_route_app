@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/web.dart';
 import 'package:mobile_test/src/application/bloc/global_bloc_observer.dart';
 import 'package:mobile_test/src/application/logger/logger.dart';
+import 'package:mobile_test/src/core/config/base_url_provider.dart';
+import 'package:mobile_test/src/core/interceptors/http_logger_interceptor.dart';
 import 'package:mobile_test/src/features/route/data/converters/location_entity_convertor.dart';
 import 'package:mobile_test/src/features/route/data/converters/route_entity_converter.dart';
 import 'package:mobile_test/src/features/route/data/converters/route_step_entity_convertor.dart';
@@ -30,6 +32,21 @@ void init() {
 
 void _registerCoreDependency() {
   injector.registerLazySingleton<Logger>(() => logger);
+
+  injector.registerLazySingleton<BaseUrlProvider>(BaseUrlProvider.new);
+
+  injector.registerLazySingleton<Dio>(
+    () => Dio(
+      BaseOptions(
+        baseUrl: injector<BaseUrlProvider>().baseUrl,
+        connectTimeout:
+            kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+        receiveTimeout:
+            kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+      ),
+    )..interceptors.add(HttpLoggerInterceptor(logger: logger)),
+  );
+
   injector.registerLazySingleton<BlocObserver>(
     () => GlobalBlocObserver(logger: logger),
   );
@@ -38,15 +55,7 @@ void _registerCoreDependency() {
 void _registerApi() {
   injector.registerLazySingleton(
     () => Api(
-      dio: Dio(
-        BaseOptions(
-          baseUrl: 'https://scrmobiletest.azurewebsites.net',
-          connectTimeout:
-              kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
-          receiveTimeout:
-              kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
-        ),
-      ),
+      dio: injector(),
     ),
   );
 }
