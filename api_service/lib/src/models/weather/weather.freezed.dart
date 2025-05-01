@@ -33,10 +33,8 @@ mixin _$Weather {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Weather &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.temperature, temperature) ||
-                other.temperature == temperature));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.temperature, temperature) || other.temperature == temperature));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -51,8 +49,7 @@ mixin _$Weather {
 
 /// @nodoc
 abstract mixin class $WeatherCopyWith<$Res> {
-  factory $WeatherCopyWith(Weather value, $Res Function(Weather) _then) =
-      _$WeatherCopyWithImpl;
+  factory $WeatherCopyWith(Weather value, $Res Function(Weather) _then) = _$WeatherCopyWithImpl;
   @useResult
   $Res call({String description, double temperature});
 }
@@ -89,8 +86,7 @@ class _$WeatherCopyWithImpl<$Res> implements $WeatherCopyWith<$Res> {
 @JsonSerializable()
 class _Weather implements Weather {
   const _Weather({required this.description, required this.temperature});
-  factory _Weather.fromJson(Map<String, dynamic> json) =>
-      _$WeatherFromJson(json);
+  factory _Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
 
   @override
   final String description;
@@ -102,8 +98,7 @@ class _Weather implements Weather {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$WeatherCopyWith<_Weather> get copyWith =>
-      __$WeatherCopyWithImpl<_Weather>(this, _$identity);
+  _$WeatherCopyWith<_Weather> get copyWith => __$WeatherCopyWithImpl<_Weather>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -117,10 +112,8 @@ class _Weather implements Weather {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Weather &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.temperature, temperature) ||
-                other.temperature == temperature));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.temperature, temperature) || other.temperature == temperature));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -135,8 +128,7 @@ class _Weather implements Weather {
 
 /// @nodoc
 abstract mixin class _$WeatherCopyWith<$Res> implements $WeatherCopyWith<$Res> {
-  factory _$WeatherCopyWith(_Weather value, $Res Function(_Weather) _then) =
-      __$WeatherCopyWithImpl;
+  factory _$WeatherCopyWith(_Weather value, $Res Function(_Weather) _then) = __$WeatherCopyWithImpl;
   @override
   @useResult
   $Res call({String description, double temperature});

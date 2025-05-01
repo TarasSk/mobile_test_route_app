@@ -11,8 +11,7 @@ _RouteStep _$RouteStepFromJson(Map<String, dynamic> json) => _RouteStep(
       location: Location.fromJson(json['location'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RouteStepToJson(_RouteStep instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RouteStepToJson(_RouteStep instance) => <String, dynamic>{
       'direction': instance.direction,
       'location': instance.location,
     };

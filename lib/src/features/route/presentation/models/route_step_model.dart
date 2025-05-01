@@ -10,4 +10,3 @@ abstract class RouteStepModel with _$RouteStepModel {
     required LocationModel location,
   }) = _RouteStepModel;
 }
-

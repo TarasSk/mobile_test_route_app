@@ -14,7 +14,7 @@ class RouteSelectorWidget extends StatelessWidget {
     return BlocBuilder<RouteBloc, RouteState>(
       builder: (context, state) {
         final bloc = context.read<RouteBloc>();
-    
+
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -30,24 +30,23 @@ class RouteSelectorWidget extends StatelessWidget {
                     TextField(
                       controller: startController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.location_on,
-                            color: Theme.of(context).colorScheme.primary),
+                        prefixIcon:
+                            Icon(Icons.location_on, color: Theme.of(context).colorScheme.primary),
                         hintText: 'Choose starting point',
                         border: InputBorder.none,
                       ),
                       onChanged: (value) {
-                        bloc.add(RouteEvent.onFromChanged(from:value));
+                        bloc.add(RouteEvent.onFromChanged(from: value));
                       },
                     ),
-    
+
                     const Divider(height: 1),
-    
+
                     // End location field
                     TextField(
                       controller: endController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.flag,
-                            color: Theme.of(context).colorScheme.error),
+                        prefixIcon: Icon(Icons.flag, color: Theme.of(context).colorScheme.error),
                         hintText: 'Choose destination',
                         border: InputBorder.none,
                       ),
@@ -62,12 +61,10 @@ class RouteSelectorWidget extends StatelessWidget {
             const SizedBox(height: 16),
             // Directions button
             FilledButton(
-              onPressed:
-                  () {
-                      bloc.add(const RouteEvent.loadRoute());
-                      RouteStepsSheet.show(context);
-                    },
-                  
+              onPressed: () {
+                bloc.add(const RouteEvent.loadRoute());
+                RouteStepsSheet.show(context);
+              },
               style: FilledButton.styleFrom(
                 minimumSize: const Size(double.infinity, 48),
               ),

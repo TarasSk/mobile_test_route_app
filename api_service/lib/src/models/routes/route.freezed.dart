@@ -23,8 +23,7 @@ mixin _$Route {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $RouteCopyWith<Route> get copyWith =>
-      _$RouteCopyWithImpl<Route>(this as Route, _$identity);
+  $RouteCopyWith<Route> get copyWith => _$RouteCopyWithImpl<Route>(this as Route, _$identity);
 
   /// Serializes this Route to a JSON map.
   Map<String, dynamic> toJson();
@@ -34,17 +33,15 @@ mixin _$Route {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Route &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
+            (identical(other.duration, duration) || other.duration == duration) &&
+            (identical(other.distance, distance) || other.distance == distance) &&
             const DeepCollectionEquality().equals(other.steps, steps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, duration, distance,
-      const DeepCollectionEquality().hash(steps));
+  int get hashCode =>
+      Object.hash(runtimeType, duration, distance, const DeepCollectionEquality().hash(steps));
 
   @override
   String toString() {
@@ -54,8 +51,7 @@ mixin _$Route {
 
 /// @nodoc
 abstract mixin class $RouteCopyWith<$Res> {
-  factory $RouteCopyWith(Route value, $Res Function(Route) _then) =
-      _$RouteCopyWithImpl;
+  factory $RouteCopyWith(Route value, $Res Function(Route) _then) = _$RouteCopyWithImpl;
   @useResult
   $Res call({int duration, int distance, List<RouteStep> steps});
 }
@@ -97,9 +93,7 @@ class _$RouteCopyWithImpl<$Res> implements $RouteCopyWith<$Res> {
 @JsonSerializable()
 class _Route implements Route {
   const _Route(
-      {required this.duration,
-      required this.distance,
-      required final List<RouteStep> steps})
+      {required this.duration, required this.distance, required final List<RouteStep> steps})
       : _steps = steps;
   factory _Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
 
@@ -120,8 +114,7 @@ class _Route implements Route {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$RouteCopyWith<_Route> get copyWith =>
-      __$RouteCopyWithImpl<_Route>(this, _$identity);
+  _$RouteCopyWith<_Route> get copyWith => __$RouteCopyWithImpl<_Route>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -135,17 +128,15 @@ class _Route implements Route {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Route &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
+            (identical(other.duration, duration) || other.duration == duration) &&
+            (identical(other.distance, distance) || other.distance == distance) &&
             const DeepCollectionEquality().equals(other._steps, _steps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, duration, distance,
-      const DeepCollectionEquality().hash(_steps));
+  int get hashCode =>
+      Object.hash(runtimeType, duration, distance, const DeepCollectionEquality().hash(_steps));
 
   @override
   String toString() {
@@ -155,8 +146,7 @@ class _Route implements Route {
 
 /// @nodoc
 abstract mixin class _$RouteCopyWith<$Res> implements $RouteCopyWith<$Res> {
-  factory _$RouteCopyWith(_Route value, $Res Function(_Route) _then) =
-      __$RouteCopyWithImpl;
+  factory _$RouteCopyWith(_Route value, $Res Function(_Route) _then) = __$RouteCopyWithImpl;
   @override
   @useResult
   $Res call({int duration, int distance, List<RouteStep> steps});

@@ -10,6 +10,5 @@ abstract class Weather with _$Weather {
     required double temperature,
   }) = _Weather;
 
-  factory Weather.fromJson(Map<String, dynamic> json) =>
-      _$WeatherFromJson(json);
+  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
 }

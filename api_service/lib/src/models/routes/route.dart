@@ -12,6 +12,5 @@ abstract class Route with _$Route {
     required List<RouteStep> steps,
   }) = _Route;
 
-  factory Route.fromJson(Map<String, dynamic> json) =>
-      _$RouteFromJson(json);
+  factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
 }

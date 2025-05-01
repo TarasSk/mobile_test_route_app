@@ -22,7 +22,7 @@ class WeatherSection extends StatelessWidget {
         ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-             weatherModel.weatherIcon,
+              weatherModel.weatherIcon,
               const SizedBox(width: 4),
               Text(
                 weatherModel.description,
@@ -32,7 +32,7 @@ class WeatherSection extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-               weatherModel.temperatureWithSign,
+                weatherModel.temperatureWithSign,
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.bold,

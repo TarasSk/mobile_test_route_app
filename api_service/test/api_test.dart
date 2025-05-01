@@ -39,7 +39,6 @@ void main() {
         ],
       );
 
-     
       final mockResponse = Response<Route>(
         data: mockRoute,
         statusCode: 200,
@@ -75,10 +74,7 @@ void main() {
       expect(
         () => api.getRoute(from: from, to: to),
         throwsA(predicate((e) =>
-            e is Exception &&
-            e
-                .toString()
-                .contains('Failed to fetch route: Connection timeout'))),
+            e is Exception && e.toString().contains('Failed to fetch route: Connection timeout'))),
       );
     });
   });
@@ -125,8 +121,7 @@ void main() {
       expect(
         () => api.getWeather(lat: lat, lng: lng),
         throwsA(predicate((e) =>
-            e is Exception &&
-            e.toString().contains('Failed to fetch weather: Receive timeout'))),
+            e is Exception && e.toString().contains('Failed to fetch weather: Receive timeout'))),
       );
     });
   });

@@ -7,13 +7,11 @@ part 'route_entity.freezed.dart';
 abstract class RouteEntity with _$RouteEntity {
   const RouteEntity._();
   const factory RouteEntity({
-    required int duration, 
+    required int duration,
     required int distance,
     required List<RouteStepEntity> steps,
   }) = _RouteEntity;
 
-
   double get distanceInKm => distance / 1000;
   double get durationInMinutes => duration / 60;
 }
-

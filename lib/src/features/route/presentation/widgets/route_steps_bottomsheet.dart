@@ -12,12 +12,8 @@ class RouteStepsSheet extends StatefulWidget {
       context: ctx,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) =>
-          BlocProvider.value(
-            value: BlocProvider.of<RouteBloc>(ctx),
-          
-        
-       
+      builder: (context) => BlocProvider.value(
+        value: BlocProvider.of<RouteBloc>(ctx),
         child: const RouteStepsSheet(),
       ),
     );
@@ -28,84 +24,47 @@ class RouteStepsSheet extends StatefulWidget {
 }
 
 class _RouteStepsSheetState extends State<RouteStepsSheet> {
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
     return DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
+      initialChildSize: 0.7,
+      minChildSize: 0.3,
+      maxChildSize: 0.9,
+      builder: (context, scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(20),
             ),
-            child: Column(
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                      borderRadius: BorderRadius.circular(2),
-                    ),
+          ),
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                // Route information header
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: const RouteHeader(),
-                ),
+              ),
+              // Route information header
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: const RouteHeader(),
+              ),
 
-                RouteSteps(controller: scrollController)
-              ],
-            ),
-          );
-        });
-  }
-
-  Widget _buildDirectionIcon(String direction, ColorScheme colorScheme) {
-    IconData icon;
-    Color color;
-
-    switch (direction) {
-      case '->':
-        icon = Icons.turn_right;
-        color = Colors.green;
-        break;
-      case '<-':
-        icon = Icons.turn_left;
-        color = Colors.blue;
-        break;
-      default:
-        icon = Icons.straight;
-        color = colorScheme.primary;
-    }
-
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color.withOpacity(0.2),
-      ),
-      child: Center(
-        child: Icon(
-          icon,
-          size: 20,
-          color: color,
-        ),
-      ),
+              RouteSteps(controller: scrollController)
+            ],
+          ),
+        );
+      },
     );
   }
 }
-
-

@@ -23,18 +23,15 @@ mixin _$RouteStepEntity {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $RouteStepEntityCopyWith<RouteStepEntity> get copyWith =>
-      _$RouteStepEntityCopyWithImpl<RouteStepEntity>(
-          this as RouteStepEntity, _$identity);
+      _$RouteStepEntityCopyWithImpl<RouteStepEntity>(this as RouteStepEntity, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RouteStepEntity &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @override
@@ -48,8 +45,7 @@ mixin _$RouteStepEntity {
 
 /// @nodoc
 abstract mixin class $RouteStepEntityCopyWith<$Res> {
-  factory $RouteStepEntityCopyWith(
-          RouteStepEntity value, $Res Function(RouteStepEntity) _then) =
+  factory $RouteStepEntityCopyWith(RouteStepEntity value, $Res Function(RouteStepEntity) _then) =
       _$RouteStepEntityCopyWithImpl;
   @useResult
   $Res call({String direction, LocationEntity location});
@@ -58,8 +54,7 @@ abstract mixin class $RouteStepEntityCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RouteStepEntityCopyWithImpl<$Res>
-    implements $RouteStepEntityCopyWith<$Res> {
+class _$RouteStepEntityCopyWithImpl<$Res> implements $RouteStepEntityCopyWith<$Res> {
   _$RouteStepEntityCopyWithImpl(this._self, this._then);
 
   final RouteStepEntity _self;
@@ -119,10 +114,8 @@ class _RouteStepEntity implements RouteStepEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RouteStepEntity &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @override
@@ -135,10 +128,8 @@ class _RouteStepEntity implements RouteStepEntity {
 }
 
 /// @nodoc
-abstract mixin class _$RouteStepEntityCopyWith<$Res>
-    implements $RouteStepEntityCopyWith<$Res> {
-  factory _$RouteStepEntityCopyWith(
-          _RouteStepEntity value, $Res Function(_RouteStepEntity) _then) =
+abstract mixin class _$RouteStepEntityCopyWith<$Res> implements $RouteStepEntityCopyWith<$Res> {
+  factory _$RouteStepEntityCopyWith(_RouteStepEntity value, $Res Function(_RouteStepEntity) _then) =
       __$RouteStepEntityCopyWithImpl;
   @override
   @useResult
@@ -149,8 +140,7 @@ abstract mixin class _$RouteStepEntityCopyWith<$Res>
 }
 
 /// @nodoc
-class __$RouteStepEntityCopyWithImpl<$Res>
-    implements _$RouteStepEntityCopyWith<$Res> {
+class __$RouteStepEntityCopyWithImpl<$Res> implements _$RouteStepEntityCopyWith<$Res> {
   __$RouteStepEntityCopyWithImpl(this._self, this._then);
 
   final _RouteStepEntity _self;

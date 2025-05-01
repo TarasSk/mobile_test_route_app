@@ -6,8 +6,7 @@ import 'package:mobile_test/src/features/route/data/converters/route_step_entity
 import 'package:mobile_test/src/features/route/domain/entities/route_entity.dart';
 
 class RouteEntityConverter extends Converter<Route, RouteEntity> {
-  const RouteEntityConverter(
-      {required RouteStepEntityConvertor routeStepEntityConvertor})
+  const RouteEntityConverter({required RouteStepEntityConvertor routeStepEntityConvertor})
       : _routeStepEntityConvertor = routeStepEntityConvertor;
 
   final RouteStepEntityConvertor _routeStepEntityConvertor;
@@ -17,9 +16,7 @@ class RouteEntityConverter extends Converter<Route, RouteEntity> {
     return RouteEntity(
       duration: input.duration,
       distance: input.distance,
-      steps: _routeStepEntityConvertor
-          .convertIterable(input.steps)
-          .toList(growable: false),
+      steps: _routeStepEntityConvertor.convertIterable(input.steps).toList(growable: false),
     );
   }
 }

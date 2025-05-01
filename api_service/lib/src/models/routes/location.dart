@@ -10,6 +10,5 @@ abstract class Location with _$Location {
     required double lng,
   }) = _Location;
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }

@@ -41,9 +41,7 @@ class HttpLoggerInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.extra = <String, dynamic>{
-      'start_time': DateTime.now().millisecondsSinceEpoch
-    };
+    options.extra = <String, dynamic>{'start_time': DateTime.now().millisecondsSinceEpoch};
     super.onRequest(options, handler);
   }
 
@@ -67,8 +65,7 @@ class HttpLoggerInterceptor extends Interceptor {
 
   /// Pretty printing a JSON or returning a regular String
   String _getBody(dynamic data, String? contentType) {
-    if (contentType != null &&
-        contentType.toLowerCase().contains('application/json')) {
+    if (contentType != null && contentType.toLowerCase().contains('application/json')) {
       const encoder = JsonEncoder.withIndent('  ');
       // the JSON can be a Map or a List
       dynamic jsonBody;
@@ -99,16 +96,14 @@ class HttpLoggerInterceptor extends Interceptor {
       }
 
       if (_printRequestBody && requestOptions?.data != null) {
-        requestLog +=
-            '\n\n${_getBody(requestOptions?.data, requestOptions?.contentType)}';
+        requestLog += '\n\n${_getBody(requestOptions?.data, requestOptions?.contentType)}';
       }
 
       requestLog += '\n\n';
     }
 
     if (_printResponse && response != null) {
-      responseLog =
-          'RESPONSE [${response.statusCode}/${response.statusMessage}]: '
+      responseLog = 'RESPONSE [${response.statusCode}/${response.statusMessage}]: '
           '${requestOptions?.extra['start_time'] != null ? '[Time elapsed: ${DateTime.now().millisecondsSinceEpoch - requestOptions?.extra['start_time']} ms]' : ''}'
           '\n\n';
 
@@ -119,8 +114,7 @@ class HttpLoggerInterceptor extends Interceptor {
       }
 
       if (_printResponseBody && response.data != null) {
-        responseLog += '\n\n' +
-            _getBody(response.data, response.headers.value('content-type'));
+        responseLog += '\n\n' + _getBody(response.data, response.headers.value('content-type'));
       }
     }
 

@@ -49,8 +49,7 @@ mixin _$Location {
 
 /// @nodoc
 abstract mixin class $LocationCopyWith<$Res> {
-  factory $LocationCopyWith(Location value, $Res Function(Location) _then) =
-      _$LocationCopyWithImpl;
+  factory $LocationCopyWith(Location value, $Res Function(Location) _then) = _$LocationCopyWithImpl;
   @useResult
   $Res call({double lat, double lng});
 }
@@ -87,8 +86,7 @@ class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
 @JsonSerializable()
 class _Location implements Location {
   const _Location({required this.lat, required this.lng});
-  factory _Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory _Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   @override
   final double lat;
@@ -130,8 +128,7 @@ class _Location implements Location {
 }
 
 /// @nodoc
-abstract mixin class _$LocationCopyWith<$Res>
-    implements $LocationCopyWith<$Res> {
+abstract mixin class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
   factory _$LocationCopyWith(_Location value, $Res Function(_Location) _then) =
       __$LocationCopyWithImpl;
   @override

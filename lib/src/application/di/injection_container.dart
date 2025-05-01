@@ -40,10 +40,8 @@ void _registerCoreDependency() {
     () => Dio(
       BaseOptions(
         baseUrl: injector<BaseUrlProvider>().baseUrl,
-        connectTimeout:
-            kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
-        receiveTimeout:
-            kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+        connectTimeout: kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
+        receiveTimeout: kDebugMode ? Duration(seconds: 10) : Duration(seconds: 3),
       ),
     )..interceptors.add(HttpLoggerInterceptor(logger: logger)),
   );
@@ -62,8 +60,7 @@ void _registerApi() {
 }
 
 void _registerConvertorers() {
-  injector.registerLazySingleton<LocationEntityConvertor>(
-      LocationEntityConvertor.new);
+  injector.registerLazySingleton<LocationEntityConvertor>(LocationEntityConvertor.new);
 
   injector.registerLazySingleton<RouteStepEntityConvertor>(
     () => RouteStepEntityConvertor(locationEntityConvertor: injector()),
@@ -116,5 +113,5 @@ void _registerBlocs() {
       logger: injector(),
     ),
   );
-;
+  ;
 }

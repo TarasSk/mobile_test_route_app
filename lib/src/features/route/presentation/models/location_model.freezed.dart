@@ -23,8 +23,7 @@ mixin _$LocationModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $LocationModelCopyWith<LocationModel> get copyWith =>
-      _$LocationModelCopyWithImpl<LocationModel>(
-          this as LocationModel, _$identity);
+      _$LocationModelCopyWithImpl<LocationModel>(this as LocationModel, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -46,16 +45,14 @@ mixin _$LocationModel {
 
 /// @nodoc
 abstract mixin class $LocationModelCopyWith<$Res> {
-  factory $LocationModelCopyWith(
-          LocationModel value, $Res Function(LocationModel) _then) =
+  factory $LocationModelCopyWith(LocationModel value, $Res Function(LocationModel) _then) =
       _$LocationModelCopyWithImpl;
   @useResult
   $Res call({double lat, double lng});
 }
 
 /// @nodoc
-class _$LocationModelCopyWithImpl<$Res>
-    implements $LocationModelCopyWith<$Res> {
+class _$LocationModelCopyWithImpl<$Res> implements $LocationModelCopyWith<$Res> {
   _$LocationModelCopyWithImpl(this._self, this._then);
 
   final LocationModel _self;
@@ -119,10 +116,8 @@ class _LocationModel extends LocationModel {
 }
 
 /// @nodoc
-abstract mixin class _$LocationModelCopyWith<$Res>
-    implements $LocationModelCopyWith<$Res> {
-  factory _$LocationModelCopyWith(
-          _LocationModel value, $Res Function(_LocationModel) _then) =
+abstract mixin class _$LocationModelCopyWith<$Res> implements $LocationModelCopyWith<$Res> {
+  factory _$LocationModelCopyWith(_LocationModel value, $Res Function(_LocationModel) _then) =
       __$LocationModelCopyWithImpl;
   @override
   @useResult
@@ -130,8 +125,7 @@ abstract mixin class _$LocationModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$LocationModelCopyWithImpl<$Res>
-    implements _$LocationModelCopyWith<$Res> {
+class __$LocationModelCopyWithImpl<$Res> implements _$LocationModelCopyWith<$Res> {
   __$LocationModelCopyWithImpl(this._self, this._then);
 
   final _LocationModel _self;

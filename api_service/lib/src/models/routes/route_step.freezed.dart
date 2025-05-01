@@ -33,10 +33,8 @@ mixin _$RouteStep {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RouteStep &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -101,8 +99,7 @@ class _$RouteStepCopyWithImpl<$Res> implements $RouteStepCopyWith<$Res> {
 @JsonSerializable()
 class _RouteStep implements RouteStep {
   const _RouteStep({required this.direction, required this.location});
-  factory _RouteStep.fromJson(Map<String, dynamic> json) =>
-      _$RouteStepFromJson(json);
+  factory _RouteStep.fromJson(Map<String, dynamic> json) => _$RouteStepFromJson(json);
 
   @override
   final String? direction;
@@ -129,10 +126,8 @@ class _RouteStep implements RouteStep {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RouteStep &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -146,10 +141,8 @@ class _RouteStep implements RouteStep {
 }
 
 /// @nodoc
-abstract mixin class _$RouteStepCopyWith<$Res>
-    implements $RouteStepCopyWith<$Res> {
-  factory _$RouteStepCopyWith(
-          _RouteStep value, $Res Function(_RouteStep) _then) =
+abstract mixin class _$RouteStepCopyWith<$Res> implements $RouteStepCopyWith<$Res> {
+  factory _$RouteStepCopyWith(_RouteStep value, $Res Function(_RouteStep) _then) =
       __$RouteStepCopyWithImpl;
   @override
   @useResult

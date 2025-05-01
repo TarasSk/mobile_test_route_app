@@ -8,9 +8,6 @@ class WeatherEntityConverter extends Converter<Weather, WeatherEntity> {
 
   @override
   WeatherEntity convert(Weather input) {
-    return WeatherEntity(
-      description: input.description,
-      temperature: input.temperature
-    );
+    return WeatherEntity(description: input.description, temperature: input.temperature);
   }
 }

@@ -11,6 +11,5 @@ abstract class RouteStep with _$RouteStep {
     required Location location,
   }) = _RouteStep;
 
-  factory RouteStep.fromJson(Map<String, dynamic> json) =>
-      _$RouteStepFromJson(json);
+  factory RouteStep.fromJson(Map<String, dynamic> json) => _$RouteStepFromJson(json);
 }

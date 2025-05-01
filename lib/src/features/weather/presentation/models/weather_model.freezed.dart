@@ -23,18 +23,15 @@ mixin _$WeatherModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $WeatherModelCopyWith<WeatherModel> get copyWith =>
-      _$WeatherModelCopyWithImpl<WeatherModel>(
-          this as WeatherModel, _$identity);
+      _$WeatherModelCopyWithImpl<WeatherModel>(this as WeatherModel, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is WeatherModel &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.temperature, temperature) ||
-                other.temperature == temperature));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.temperature, temperature) || other.temperature == temperature));
   }
 
   @override
@@ -48,8 +45,7 @@ mixin _$WeatherModel {
 
 /// @nodoc
 abstract mixin class $WeatherModelCopyWith<$Res> {
-  factory $WeatherModelCopyWith(
-          WeatherModel value, $Res Function(WeatherModel) _then) =
+  factory $WeatherModelCopyWith(WeatherModel value, $Res Function(WeatherModel) _then) =
       _$WeatherModelCopyWithImpl;
   @useResult
   $Res call({String description, double temperature});
@@ -86,8 +82,7 @@ class _$WeatherModelCopyWithImpl<$Res> implements $WeatherModelCopyWith<$Res> {
 /// @nodoc
 
 class _WeatherModel extends WeatherModel {
-  const _WeatherModel({required this.description, required this.temperature})
-      : super._();
+  const _WeatherModel({required this.description, required this.temperature}) : super._();
 
   @override
   final String description;
@@ -107,10 +102,8 @@ class _WeatherModel extends WeatherModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _WeatherModel &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.temperature, temperature) ||
-                other.temperature == temperature));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.temperature, temperature) || other.temperature == temperature));
   }
 
   @override
@@ -123,10 +116,8 @@ class _WeatherModel extends WeatherModel {
 }
 
 /// @nodoc
-abstract mixin class _$WeatherModelCopyWith<$Res>
-    implements $WeatherModelCopyWith<$Res> {
-  factory _$WeatherModelCopyWith(
-          _WeatherModel value, $Res Function(_WeatherModel) _then) =
+abstract mixin class _$WeatherModelCopyWith<$Res> implements $WeatherModelCopyWith<$Res> {
+  factory _$WeatherModelCopyWith(_WeatherModel value, $Res Function(_WeatherModel) _then) =
       __$WeatherModelCopyWithImpl;
   @override
   @useResult
@@ -134,8 +125,7 @@ abstract mixin class _$WeatherModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$WeatherModelCopyWithImpl<$Res>
-    implements _$WeatherModelCopyWith<$Res> {
+class __$WeatherModelCopyWithImpl<$Res> implements _$WeatherModelCopyWith<$Res> {
   __$WeatherModelCopyWithImpl(this._self, this._then);
 
   final _WeatherModel _self;

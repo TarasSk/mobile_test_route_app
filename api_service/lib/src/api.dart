@@ -46,7 +46,6 @@ class Api {
     }
   }
 
-
   Future<Response<Weather>> getWeather({
     required double lat,
     required double lng,
@@ -80,8 +79,7 @@ class Api {
     } else if (e.type == DioExceptionType.sendTimeout) {
       return Exception('$message: Send timeout');
     } else if (e.response != null) {
-      return Exception(
-          '$message: ${e.response?.statusCode} - ${e.response?.statusMessage}');
+      return Exception('$message: ${e.response?.statusCode} - ${e.response?.statusMessage}');
     } else {
       return Exception('$message: ${e.message}');
     }

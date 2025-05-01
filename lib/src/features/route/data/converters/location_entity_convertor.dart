@@ -13,5 +13,4 @@ class LocationEntityConvertor extends Converter<Location, LocationEntity> {
       lng: input.lng,
     );
   }
-
 }

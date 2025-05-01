@@ -40,8 +40,7 @@ class DebugPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final step = weatherForStep[index];
                           return ListTile(
-                            title: Text(route.distance.toString() +
-                                route.duration.toString()),
+                            title: Text(route.distance.toString() + route.duration.toString()),
                             subtitle: Text('${step.$1.direction}'),
                             trailing: Text('${step.$2.temperature}'),
                           );
@@ -59,8 +58,7 @@ class DebugPage extends StatelessWidget {
   Future<(RouteEntity, List<(RouteStepEntity, WeatherEntity)>)> _get() async {
     final routeUsecase = di.injector<RouteUseCase>();
     final weatherUsecase = di.injector<WeatherUseCase>();
-    final route = await routeUsecase
-        .call(RouteUseCaseParams(from: 'London', to: 'Paris'));
+    final route = await routeUsecase.call(RouteUseCaseParams(from: 'London', to: 'Paris'));
 
     if (route.steps.isNotEmpty) {
       List<(RouteStepEntity, WeatherEntity)> weatherForStep = [];

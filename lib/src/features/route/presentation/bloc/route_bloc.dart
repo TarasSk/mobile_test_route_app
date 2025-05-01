@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -62,12 +61,10 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
   }
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
-    if (state case Initial(:final from, :final to)
-        when from.isNotEmpty && to.isNotEmpty) {
+    if (state case Initial(:final from, :final to) when from.isNotEmpty && to.isNotEmpty) {
       emit(const RouteState.loading());
 
-      final routeEntity =
-          await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
+      final routeEntity = await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
 
       emit(
         RouteState.loaded(
@@ -132,8 +129,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
     }
   }
 
-  Future<Map<String, WeatherModel>> _loadWeatherForSteps(
-      Iterable<RouteStepModel> steps) async {
+  Future<Map<String, WeatherModel>> _loadWeatherForSteps(Iterable<RouteStepModel> steps) async {
     final entries = await Future.wait(
       steps.map((step) async {
         final weather = await _weatherUseCase.call(
