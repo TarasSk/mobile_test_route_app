@@ -43,6 +43,12 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: event.from,
             to: to,
           ),
+        LoadSuccess(:final route, :final weather, :final to) => RouteState.loaded(
+            route: route,
+            weather: weather,
+            from: event.from,
+            to: to,
+          ),
         _ => state,
       },
     );
@@ -55,19 +61,33 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: from,
             to: event.to,
           ),
+        LoadSuccess(:final route, :final weather, :final from) => RouteState.loaded(
+            route: route,
+            weather: weather,
+            from: from,
+            to: event.to,
+          ),
         _ => state,
       },
     );
   }
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
-    if (state case Initial(:final from, :final to) when from.isNotEmpty && to.isNotEmpty) {
-      emit(const RouteState.loading());
+    switch (state) {
+      case Initial(:final from, :final to)
+          when from.isNotEmpty && to.isNotEmpty:
+      case LoadSuccess(
+            :final from,
+            :final to,
+          )
+          when from.isNotEmpty && to.isNotEmpty:
+        emit(const RouteState.loading());
+        _loadedCount = 0;
+        final routeEntity =
+            await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
 
-      final routeEntity = await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
-
-      emit(
-        RouteState.loaded(
+        emit(
+          RouteState.loaded(
             route: RouteModel(
               duration: routeEntity.duration,
               distance: routeEntity.distance,
@@ -86,50 +106,53 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             weather: {},
             from: from,
             to: to,
-            isWeatherLoading: true),
-      );
+          ),
+        );
 
-      if (state
-          case LoadSuccess(
-            :final route,
-            :final weather,
-            :final from,
-            :final to,
-          )) {
-        // load weather in batches to avoid overloading the API
-        Map<String, WeatherModel> accWeather = Map.from(weather);
-        try {
-          while (_loadedCount < route.steps.length) {
-            final batch = route.steps.skip(_loadedCount).take(_batchSize);
-            final weatherBatch = await _loadWeatherForSteps(batch);
-            _loadedCount += batch.length;
-            accWeather.addAll(weatherBatch);
+        if (state
+            case LoadSuccess(
+              :final route,
+              :final weather,
+              :final from,
+              :final to,
+            )) {
+          // load weather in batches to avoid overloading the API
+          Map<String, WeatherModel> accWeather = Map.from(weather);
+          try {
+            while (_loadedCount < route.steps.length) {
+              final batch = route.steps.skip(_loadedCount).take(_batchSize);
+              final weatherBatch = await _loadWeatherForSteps(batch);
+              _loadedCount += batch.length;
+              accWeather.addAll(weatherBatch);
 
-            emit(RouteState.loaded(
-              route: route,
-              weather: Map.from(accWeather),
-              from: from,
-              to: to,
-              isWeatherLoading: false,
-            ));
+              emit(
+                RouteState.loaded(
+                  route: route,
+                  weather: Map.from(accWeather),
+                  from: from,
+                  to: to,
+                ),
+              );
+            }
+          } catch (e) {
+            _logger.e('Error fetching weather $e');
+            emit(
+              RouteState.loaded(
+                route: route,
+                weather: weather,
+                from: from,
+                to: to,
+              ),
+            );
           }
-        } catch (e) {
-          _logger.e('Error fetching weather $e');
-          emit(
-            RouteState.loaded(
-              route: route,
-              weather: weather,
-              from: from,
-              to: to,
-              isWeatherLoading: false,
-            ),
-          );
         }
-      }
+      default:
+        break;
     }
   }
 
-  Future<Map<String, WeatherModel>> _loadWeatherForSteps(Iterable<RouteStepModel> steps) async {
+  Future<Map<String, WeatherModel>> _loadWeatherForSteps(
+      Iterable<RouteStepModel> steps) async {
     final entries = await Future.wait(
       steps.map((step) async {
         final weather = await _weatherUseCase.call(

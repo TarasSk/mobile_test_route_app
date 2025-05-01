@@ -13,6 +13,5 @@ sealed class RouteState with _$RouteState {
     required Map<String, WeatherModel> weather,
     required String from,
     required String to,
-    @Default(false) bool isWeatherLoading,
   }) = LoadSuccess;
 }

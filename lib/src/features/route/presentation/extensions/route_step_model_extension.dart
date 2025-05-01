@@ -26,6 +26,10 @@ extension RouteStepModelExtension on RouteStepModel {
         return const Icon(Icons.merge, color: Colors.green);
       case 'ferry-train':
         return const Icon(Icons.directions_boat, color: Colors.teal);
+      case 'keep-right':
+       return const Icon(Icons.turn_right, color: Colors.blue);
+      case 'keep-left':
+        return const Icon(Icons.turn_left, color: Colors.blue);
       default:
         return const Icon(Icons.straight, color: Colors.grey);
     }

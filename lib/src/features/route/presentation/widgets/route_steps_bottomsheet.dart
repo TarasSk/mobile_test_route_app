@@ -26,9 +26,9 @@ class RouteStepsSheet extends StatefulWidget {
 class _RouteStepsSheetState extends State<RouteStepsSheet> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
+    final isLoading = context.select<RouteBloc, bool>(
+      (bloc) => bloc.state is LoadInProgress,
+    );
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
       minChildSize: 0.3,
@@ -41,7 +41,7 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
               top: Radius.circular(20),
             ),
           ),
-          child: Column(
+          child: isLoading ? Expanded(child: Center(child: CircularProgressIndicator(),)) : Column(
             children: [
               Center(
                 child: Container(

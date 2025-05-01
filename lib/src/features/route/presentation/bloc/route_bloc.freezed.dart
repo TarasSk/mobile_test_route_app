@@ -22,7 +22,8 @@ mixin _$RouteState implements DiagnosticableTreeMixin {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is RouteState);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RouteState);
   }
 
   @override
@@ -51,7 +52,8 @@ class Initial extends RouteState with DiagnosticableTreeMixin {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $InitialCopyWith<Initial> get copyWith => _$InitialCopyWithImpl<Initial>(this, _$identity);
+  $InitialCopyWith<Initial> get copyWith =>
+      _$InitialCopyWithImpl<Initial>(this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -80,8 +82,10 @@ class Initial extends RouteState with DiagnosticableTreeMixin {
 }
 
 /// @nodoc
-abstract mixin class $InitialCopyWith<$Res> implements $RouteStateCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) _then) = _$InitialCopyWithImpl;
+abstract mixin class $InitialCopyWith<$Res>
+    implements $RouteStateCopyWith<$Res> {
+  factory $InitialCopyWith(Initial value, $Res Function(Initial) _then) =
+      _$InitialCopyWithImpl;
   @useResult
   $Res call({String from, String to});
 }
@@ -125,7 +129,8 @@ class LoadInProgress extends RouteState with DiagnosticableTreeMixin {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is LoadInProgress);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is LoadInProgress);
   }
 
   @override
@@ -144,8 +149,7 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
       {required this.route,
       required final Map<String, WeatherModel> weather,
       required this.from,
-      required this.to,
-      this.isWeatherLoading = false})
+      required this.to})
       : _weather = weather,
         super._();
 
@@ -159,8 +163,6 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
 
   final String from;
   final String to;
-  @JsonKey()
-  final bool isWeatherLoading;
 
   /// Create a copy of RouteState
   /// with the given fields replaced by the non-null parameter values.
@@ -176,8 +178,7 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('route', route))
       ..add(DiagnosticsProperty('weather', weather))
       ..add(DiagnosticsProperty('from', from))
-      ..add(DiagnosticsProperty('to', to))
-      ..add(DiagnosticsProperty('isWeatherLoading', isWeatherLoading));
+      ..add(DiagnosticsProperty('to', to));
   }
 
   @override
@@ -188,32 +189,31 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
             (identical(other.route, route) || other.route == route) &&
             const DeepCollectionEquality().equals(other._weather, _weather) &&
             (identical(other.from, from) || other.from == from) &&
-            (identical(other.to, to) || other.to == to) &&
-            (identical(other.isWeatherLoading, isWeatherLoading) ||
-                other.isWeatherLoading == isWeatherLoading));
+            (identical(other.to, to) || other.to == to));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, route, const DeepCollectionEquality().hash(_weather),
-      from, to, isWeatherLoading);
+  int get hashCode => Object.hash(runtimeType, route,
+      const DeepCollectionEquality().hash(_weather), from, to);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteState.loaded(route: $route, weather: $weather, from: $from, to: $to, isWeatherLoading: $isWeatherLoading)';
+    return 'RouteState.loaded(route: $route, weather: $weather, from: $from, to: $to)';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoadSuccessCopyWith<$Res> implements $RouteStateCopyWith<$Res> {
-  factory $LoadSuccessCopyWith(LoadSuccess value, $Res Function(LoadSuccess) _then) =
+abstract mixin class $LoadSuccessCopyWith<$Res>
+    implements $RouteStateCopyWith<$Res> {
+  factory $LoadSuccessCopyWith(
+          LoadSuccess value, $Res Function(LoadSuccess) _then) =
       _$LoadSuccessCopyWithImpl;
   @useResult
   $Res call(
       {RouteModel route,
       Map<String, WeatherModel> weather,
       String from,
-      String to,
-      bool isWeatherLoading});
+      String to});
 
   $RouteModelCopyWith<$Res> get route;
 }
@@ -233,7 +233,6 @@ class _$LoadSuccessCopyWithImpl<$Res> implements $LoadSuccessCopyWith<$Res> {
     Object? weather = null,
     Object? from = null,
     Object? to = null,
-    Object? isWeatherLoading = null,
   }) {
     return _then(LoadSuccess(
       route: null == route
@@ -252,10 +251,6 @@ class _$LoadSuccessCopyWithImpl<$Res> implements $LoadSuccessCopyWith<$Res> {
           ? _self.to
           : to // ignore: cast_nullable_to_non_nullable
               as String,
-      isWeatherLoading: null == isWeatherLoading
-          ? _self.isWeatherLoading
-          : isWeatherLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 
@@ -279,7 +274,8 @@ mixin _$RouteEvent implements DiagnosticableTreeMixin {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is RouteEvent);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RouteEvent);
   }
 
   @override
@@ -335,8 +331,10 @@ class _FromChanged with DiagnosticableTreeMixin implements RouteEvent {
 }
 
 /// @nodoc
-abstract mixin class _$FromChangedCopyWith<$Res> implements $RouteEventCopyWith<$Res> {
-  factory _$FromChangedCopyWith(_FromChanged value, $Res Function(_FromChanged) _then) =
+abstract mixin class _$FromChangedCopyWith<$Res>
+    implements $RouteEventCopyWith<$Res> {
+  factory _$FromChangedCopyWith(
+          _FromChanged value, $Res Function(_FromChanged) _then) =
       __$FromChangedCopyWithImpl;
   @useResult
   $Res call({String from});
@@ -403,8 +401,10 @@ class _ToChanged with DiagnosticableTreeMixin implements RouteEvent {
 }
 
 /// @nodoc
-abstract mixin class _$ToChangedCopyWith<$Res> implements $RouteEventCopyWith<$Res> {
-  factory _$ToChangedCopyWith(_ToChanged value, $Res Function(_ToChanged) _then) =
+abstract mixin class _$ToChangedCopyWith<$Res>
+    implements $RouteEventCopyWith<$Res> {
+  factory _$ToChangedCopyWith(
+          _ToChanged value, $Res Function(_ToChanged) _then) =
       __$ToChangedCopyWithImpl;
   @useResult
   $Res call({String to});
@@ -444,7 +444,8 @@ class _LoadRoute with DiagnosticableTreeMixin implements RouteEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _LoadRoute);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LoadRoute);
   }
 
   @override
@@ -468,7 +469,8 @@ class _LoadNextBatch with DiagnosticableTreeMixin implements RouteEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _LoadNextBatch);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LoadNextBatch);
   }
 
   @override
