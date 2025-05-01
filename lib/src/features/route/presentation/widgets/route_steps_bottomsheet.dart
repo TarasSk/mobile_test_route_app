@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_test/src/features/route/presentation/bloc/route_bloc.dart';
-import 'package:mobile_test/src/features/route/presentation/models/location_model.dart';
-import 'package:mobile_test/src/features/route/presentation/models/route_model.dart';
 import 'package:mobile_test/src/features/route/presentation/widgets/route_header.dart';
-import 'package:mobile_test/src/features/weather/presentation/bloc/weather_bloc.dart';
-import 'package:mobile_test/src/features/weather/presentation/widgets/weather_section.dart';
+import 'package:mobile_test/src/features/route/presentation/widgets/route_steps.dart';
 
-class RouteStepsSheet extends StatelessWidget {
+class RouteStepsSheet extends StatefulWidget {
   const RouteStepsSheet({super.key});
 
   static Future<void> show(BuildContext ctx) {
@@ -15,19 +12,22 @@ class RouteStepsSheet extends StatelessWidget {
       context: ctx,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => MultiBlocProvider(
-        providers: [
+      builder: (context) =>
           BlocProvider.value(
             value: BlocProvider.of<RouteBloc>(ctx),
-          ),
-          BlocProvider.value(
-            value: BlocProvider.of<WeatherBloc>(ctx),
-          ),
-        ],
+          
+        
+       
         child: const RouteStepsSheet(),
       ),
     );
   }
+
+  @override
+  State<RouteStepsSheet> createState() => _RouteStepsSheetState();
+}
+
+class _RouteStepsSheetState extends State<RouteStepsSheet> {
 
   @override
   Widget build(BuildContext context) {
@@ -35,83 +35,41 @@ class RouteStepsSheet extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.5,
-      minChildSize: 0.3,
-      maxChildSize: 0.9,
-      builder: (context, scrollController) => Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          children: [
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onVerticalDragUpdate: (details) {
-                scrollController.position.moveTo(
-                  scrollController.position.pixels - details.delta.dy,
-                );
-              },
-              child: Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(2),
+        initialChildSize: 0.7,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        builder: (context, scrollController) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            // Route information header
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const RouteHeader(),
-            ),
+                // Route information header
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const RouteHeader(),
+                ),
 
-            Expanded(
-              child: BlocBuilder<RouteBloc, RouteState>(
-                builder: (context, state) {
-                  switch (state) {
-                    case LoadSuccess(:final route):
-                      return ListView.builder(
-                        controller: scrollController,
-                        padding: const EdgeInsets.all(16),
-                        itemCount: route.steps.length,
-                        itemBuilder: (context, index) {
-                          final step = route.steps[index];
-                          return Card(
-                            margin: const EdgeInsets.only(bottom: 8),
-                            color: colorScheme.surface,
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.directions_walk,
-                                color: colorScheme.primary,
-                              ),
-                              title: Text(
-                                step.direction,
-                                style: theme.textTheme.bodyLarge,
-                              ),
-                             trailing: WeatherSection(location: step.location),
-                            ),
-                          );
-                        },
-                      );
-                    default:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                  }
-                },
-              ),
+                RouteSteps(controller: scrollController)
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 
   Widget _buildDirectionIcon(String direction, ColorScheme colorScheme) {
@@ -148,19 +106,6 @@ class RouteStepsSheet extends StatelessWidget {
       ),
     );
   }
-
-  IconData _getWeatherIcon(String weather) {
-    switch (weather.toLowerCase()) {
-      case 'sunny':
-        return Icons.wb_sunny;
-      case 'partly cloudy':
-        return Icons.wb_cloudy;
-      case 'rainy':
-        return Icons.beach_access;
-      case 'clear':
-        return Icons.nightlight_round;
-      default:
-        return Icons.cloud;
-    }
-  }
 }
+
+

@@ -85,8 +85,9 @@ class _$WeatherModelCopyWithImpl<$Res> implements $WeatherModelCopyWith<$Res> {
 
 /// @nodoc
 
-class _WeatherModel implements WeatherModel {
-  const _WeatherModel({required this.description, required this.temperature});
+class _WeatherModel extends WeatherModel {
+  const _WeatherModel({required this.description, required this.temperature})
+      : super._();
 
   @override
   final String description;

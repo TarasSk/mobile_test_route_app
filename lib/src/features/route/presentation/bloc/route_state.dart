@@ -10,7 +10,9 @@ sealed class RouteState with _$RouteState {
   const factory RouteState.loading() = LoadInProgress;
   const factory RouteState.loaded({
     required RouteModel route,
+    required Map<String, WeatherModel> weather,
     required String from,
     required String to,
+    @Default(false) bool isWeatherLoading,
   }) = LoadSuccess;
 }

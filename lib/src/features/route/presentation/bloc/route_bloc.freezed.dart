@@ -145,12 +145,27 @@ class LoadInProgress extends RouteState with DiagnosticableTreeMixin {
 /// @nodoc
 
 class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
-  const LoadSuccess({required this.route, required this.from, required this.to})
-      : super._();
+  const LoadSuccess(
+      {required this.route,
+      required final Map<String, WeatherModel> weather,
+      required this.from,
+      required this.to,
+      this.isWeatherLoading = false})
+      : _weather = weather,
+        super._();
 
   final RouteModel route;
+  final Map<String, WeatherModel> _weather;
+  Map<String, WeatherModel> get weather {
+    if (_weather is EqualUnmodifiableMapView) return _weather;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_weather);
+  }
+
   final String from;
   final String to;
+  @JsonKey()
+  final bool isWeatherLoading;
 
   /// Create a copy of RouteState
   /// with the given fields replaced by the non-null parameter values.
@@ -164,8 +179,10 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'RouteState.loaded'))
       ..add(DiagnosticsProperty('route', route))
+      ..add(DiagnosticsProperty('weather', weather))
       ..add(DiagnosticsProperty('from', from))
-      ..add(DiagnosticsProperty('to', to));
+      ..add(DiagnosticsProperty('to', to))
+      ..add(DiagnosticsProperty('isWeatherLoading', isWeatherLoading));
   }
 
   @override
@@ -174,16 +191,25 @@ class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is LoadSuccess &&
             (identical(other.route, route) || other.route == route) &&
+            const DeepCollectionEquality().equals(other._weather, _weather) &&
             (identical(other.from, from) || other.from == from) &&
-            (identical(other.to, to) || other.to == to));
+            (identical(other.to, to) || other.to == to) &&
+            (identical(other.isWeatherLoading, isWeatherLoading) ||
+                other.isWeatherLoading == isWeatherLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, route, from, to);
+  int get hashCode => Object.hash(
+      runtimeType,
+      route,
+      const DeepCollectionEquality().hash(_weather),
+      from,
+      to,
+      isWeatherLoading);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteState.loaded(route: $route, from: $from, to: $to)';
+    return 'RouteState.loaded(route: $route, weather: $weather, from: $from, to: $to, isWeatherLoading: $isWeatherLoading)';
   }
 }
 
@@ -194,7 +220,12 @@ abstract mixin class $LoadSuccessCopyWith<$Res>
           LoadSuccess value, $Res Function(LoadSuccess) _then) =
       _$LoadSuccessCopyWithImpl;
   @useResult
-  $Res call({RouteModel route, String from, String to});
+  $Res call(
+      {RouteModel route,
+      Map<String, WeatherModel> weather,
+      String from,
+      String to,
+      bool isWeatherLoading});
 
   $RouteModelCopyWith<$Res> get route;
 }
@@ -211,14 +242,20 @@ class _$LoadSuccessCopyWithImpl<$Res> implements $LoadSuccessCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? route = null,
+    Object? weather = null,
     Object? from = null,
     Object? to = null,
+    Object? isWeatherLoading = null,
   }) {
     return _then(LoadSuccess(
       route: null == route
           ? _self.route
           : route // ignore: cast_nullable_to_non_nullable
               as RouteModel,
+      weather: null == weather
+          ? _self._weather
+          : weather // ignore: cast_nullable_to_non_nullable
+              as Map<String, WeatherModel>,
       from: null == from
           ? _self.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -227,6 +264,10 @@ class _$LoadSuccessCopyWithImpl<$Res> implements $LoadSuccessCopyWith<$Res> {
           ? _self.to
           : to // ignore: cast_nullable_to_non_nullable
               as String,
+      isWeatherLoading: null == isWeatherLoading
+          ? _self.isWeatherLoading
+          : isWeatherLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -430,6 +471,31 @@ class _LoadRoute with DiagnosticableTreeMixin implements RouteEvent {
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RouteEvent.loadRoute()';
+  }
+}
+
+/// @nodoc
+
+class _LoadNextBatch with DiagnosticableTreeMixin implements RouteEvent {
+  const _LoadNextBatch();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'RouteEvent.loaadNextBatch'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LoadNextBatch);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RouteEvent.loaadNextBatch()';
   }
 }
 

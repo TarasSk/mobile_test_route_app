@@ -19,7 +19,6 @@ import 'package:mobile_test/src/features/weather/data/converters/weather_entity_
 import 'package:mobile_test/src/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:mobile_test/src/features/weather/domain/repositories/weather_repository.dart';
 import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_case.dart';
-import 'package:mobile_test/src/features/weather/presentation/bloc/weather_bloc.dart';
 
 final injector = GetIt.instance;
 
@@ -113,14 +112,9 @@ void _registerBlocs() {
   injector.registerFactory(
     () => RouteBloc(
       routeUseCase: injector(),
-      logger: injector(),
-    ),
-  );
-
-  injector.registerFactory(
-    () => WeatherBloc(
       weatherUseCase: injector(),
       logger: injector(),
     ),
   );
+;
 }

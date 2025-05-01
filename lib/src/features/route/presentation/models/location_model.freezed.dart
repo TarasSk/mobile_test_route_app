@@ -84,8 +84,8 @@ class _$LocationModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _LocationModel implements LocationModel {
-  const _LocationModel({required this.lat, required this.lng});
+class _LocationModel extends LocationModel {
+  const _LocationModel({required this.lat, required this.lng}) : super._();
 
   @override
   final double lat;
