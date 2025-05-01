@@ -42,8 +42,8 @@ class $RouteStateCopyWith<$Res> {
 
 /// @nodoc
 
-class _Initial extends RouteState with DiagnosticableTreeMixin {
-  const _Initial({required this.from, required this.to}) : super._();
+class Initial extends RouteState with DiagnosticableTreeMixin {
+  const Initial({required this.from, required this.to}) : super._();
 
   final String from;
   final String to;
@@ -52,8 +52,8 @@ class _Initial extends RouteState with DiagnosticableTreeMixin {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$InitialCopyWith<_Initial> get copyWith =>
-      __$InitialCopyWithImpl<_Initial>(this, _$identity);
+  $InitialCopyWith<Initial> get copyWith =>
+      _$InitialCopyWithImpl<Initial>(this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -67,7 +67,7 @@ class _Initial extends RouteState with DiagnosticableTreeMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Initial &&
+            other is Initial &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to));
   }
@@ -82,20 +82,20 @@ class _Initial extends RouteState with DiagnosticableTreeMixin {
 }
 
 /// @nodoc
-abstract mixin class _$InitialCopyWith<$Res>
+abstract mixin class $InitialCopyWith<$Res>
     implements $RouteStateCopyWith<$Res> {
-  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) _then) =
-      __$InitialCopyWithImpl;
+  factory $InitialCopyWith(Initial value, $Res Function(Initial) _then) =
+      _$InitialCopyWithImpl;
   @useResult
   $Res call({String from, String to});
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res> implements _$InitialCopyWith<$Res> {
-  __$InitialCopyWithImpl(this._self, this._then);
+class _$InitialCopyWithImpl<$Res> implements $InitialCopyWith<$Res> {
+  _$InitialCopyWithImpl(this._self, this._then);
 
-  final _Initial _self;
-  final $Res Function(_Initial) _then;
+  final Initial _self;
+  final $Res Function(Initial) _then;
 
   /// Create a copy of RouteState
   /// with the given fields replaced by the non-null parameter values.
@@ -104,7 +104,7 @@ class __$InitialCopyWithImpl<$Res> implements _$InitialCopyWith<$Res> {
     Object? from = null,
     Object? to = null,
   }) {
-    return _then(_Initial(
+    return _then(Initial(
       from: null == from
           ? _self.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$InitialCopyWithImpl<$Res> implements _$InitialCopyWith<$Res> {
 
 /// @nodoc
 
-class _LoadInProgress extends RouteState with DiagnosticableTreeMixin {
-  const _LoadInProgress() : super._();
+class LoadInProgress extends RouteState with DiagnosticableTreeMixin {
+  const LoadInProgress() : super._();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -130,7 +130,7 @@ class _LoadInProgress extends RouteState with DiagnosticableTreeMixin {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _LoadInProgress);
+        (other.runtimeType == runtimeType && other is LoadInProgress);
   }
 
   @override
@@ -144,72 +144,89 @@ class _LoadInProgress extends RouteState with DiagnosticableTreeMixin {
 
 /// @nodoc
 
-class _LoadSuccess extends RouteState with DiagnosticableTreeMixin {
-  const _LoadSuccess({required this.route}) : super._();
+class LoadSuccess extends RouteState with DiagnosticableTreeMixin {
+  const LoadSuccess({required this.route, required this.from, required this.to})
+      : super._();
 
   final RouteModel route;
+  final String from;
+  final String to;
 
   /// Create a copy of RouteState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
-      __$LoadSuccessCopyWithImpl<_LoadSuccess>(this, _$identity);
+  $LoadSuccessCopyWith<LoadSuccess> get copyWith =>
+      _$LoadSuccessCopyWithImpl<LoadSuccess>(this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
       ..add(DiagnosticsProperty('type', 'RouteState.loaded'))
-      ..add(DiagnosticsProperty('route', route));
+      ..add(DiagnosticsProperty('route', route))
+      ..add(DiagnosticsProperty('from', from))
+      ..add(DiagnosticsProperty('to', to));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoadSuccess &&
-            (identical(other.route, route) || other.route == route));
+            other is LoadSuccess &&
+            (identical(other.route, route) || other.route == route) &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, route);
+  int get hashCode => Object.hash(runtimeType, route, from, to);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteState.loaded(route: $route)';
+    return 'RouteState.loaded(route: $route, from: $from, to: $to)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$LoadSuccessCopyWith<$Res>
+abstract mixin class $LoadSuccessCopyWith<$Res>
     implements $RouteStateCopyWith<$Res> {
-  factory _$LoadSuccessCopyWith(
-          _LoadSuccess value, $Res Function(_LoadSuccess) _then) =
-      __$LoadSuccessCopyWithImpl;
+  factory $LoadSuccessCopyWith(
+          LoadSuccess value, $Res Function(LoadSuccess) _then) =
+      _$LoadSuccessCopyWithImpl;
   @useResult
-  $Res call({RouteModel route});
+  $Res call({RouteModel route, String from, String to});
 
   $RouteModelCopyWith<$Res> get route;
 }
 
 /// @nodoc
-class __$LoadSuccessCopyWithImpl<$Res> implements _$LoadSuccessCopyWith<$Res> {
-  __$LoadSuccessCopyWithImpl(this._self, this._then);
+class _$LoadSuccessCopyWithImpl<$Res> implements $LoadSuccessCopyWith<$Res> {
+  _$LoadSuccessCopyWithImpl(this._self, this._then);
 
-  final _LoadSuccess _self;
-  final $Res Function(_LoadSuccess) _then;
+  final LoadSuccess _self;
+  final $Res Function(LoadSuccess) _then;
 
   /// Create a copy of RouteState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
     Object? route = null,
+    Object? from = null,
+    Object? to = null,
   }) {
-    return _then(_LoadSuccess(
+    return _then(LoadSuccess(
       route: null == route
           ? _self.route
           : route // ignore: cast_nullable_to_non_nullable
               as RouteModel,
+      from: null == from
+          ? _self.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to: null == to
+          ? _self.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 

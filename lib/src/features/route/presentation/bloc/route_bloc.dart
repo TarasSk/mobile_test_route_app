@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:logger/logger.dart';
 import 'package:mobile_test/src/features/route/domain/usecases/route_use_case.dart';
 import 'package:mobile_test/src/features/route/domain/usecases/route_use_case_params.dart';
 import 'package:mobile_test/src/features/route/presentation/models/location_model.dart';
@@ -14,8 +15,9 @@ part 'route_event.dart';
 part 'route_bloc.freezed.dart';
 
 class RouteBloc extends Bloc<RouteEvent, RouteState> {
-  RouteBloc({required RouteUseCase routeUseCase})
+  RouteBloc({required RouteUseCase routeUseCase, required Logger logger})
       : _routeUseCase = routeUseCase,
+        _logger = logger,
         super(const RouteState.initial(from: '', to: '')) {
     on<_FromChanged>(_onFromChanged);
     on<_ToChanged>(_onToChanged);
@@ -23,11 +25,12 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
   }
 
   final RouteUseCase _routeUseCase;
+  final Logger _logger;
 
   void _onFromChanged(_FromChanged event, Emitter<RouteState> emit) {
     emit(
       switch (state) {
-        _Initial(:final to) => RouteState.initial(
+        Initial(:final to) => RouteState.initial(
             from: event.from,
             to: to,
           ),
@@ -39,7 +42,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
   void _onToChanged(_ToChanged event, Emitter<RouteState> emit) {
     emit(
       switch (state) {
-        _Initial(:final from) => RouteState.initial(
+        Initial(:final from) => RouteState.initial(
             from: from,
             to: event.to,
           ),
@@ -49,7 +52,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
   }
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
-    if (state case _Initial(:final from, :final to)
+    if (state case Initial(:final from, :final to)
         when from.isNotEmpty && to.isNotEmpty) {
       emit(const RouteState.loading());
 
@@ -73,6 +76,8 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
                 )
                 .toList(),
           ),
+          from: from,
+          to: to,
         ),
       );
     }

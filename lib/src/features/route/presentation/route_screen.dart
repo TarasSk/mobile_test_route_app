@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:mobile_test/src/features/route/presentation/widgets/route_selector.dart';
 
-class RouteMap extends StatelessWidget {
-  const RouteMap({super.key});
+class RouteScreen extends StatelessWidget {
+  const RouteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

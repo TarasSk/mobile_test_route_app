@@ -6,9 +6,11 @@ sealed class RouteState with _$RouteState {
   const factory RouteState.initial({
     required String from,
     required String to,
-  }) = _Initial;
-  const factory RouteState.loading() = _LoadInProgress;
+  }) = Initial;
+  const factory RouteState.loading() = LoadInProgress;
   const factory RouteState.loaded({
     required RouteModel route,
-  }) = _LoadSuccess;
+    required String from,
+    required String to,
+  }) = LoadSuccess;
 }

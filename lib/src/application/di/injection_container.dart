@@ -14,10 +14,12 @@ import 'package:mobile_test/src/features/route/data/converters/route_step_entity
 import 'package:mobile_test/src/features/route/data/repositories/route_repository_impl.dart';
 import 'package:mobile_test/src/features/route/domain/repositories/route_repository.dart';
 import 'package:mobile_test/src/features/route/domain/usecases/route_use_case.dart';
+import 'package:mobile_test/src/features/route/presentation/bloc/route_bloc.dart';
 import 'package:mobile_test/src/features/weather/data/converters/weather_entity_converter.dart';
 import 'package:mobile_test/src/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:mobile_test/src/features/weather/domain/repositories/weather_repository.dart';
 import 'package:mobile_test/src/features/weather/domain/usecases/weather_use_case.dart';
+import 'package:mobile_test/src/features/weather/presentation/bloc/weather_bloc.dart';
 
 final injector = GetIt.instance;
 
@@ -108,6 +110,17 @@ void _registerUseCases() {
 }
 
 void _registerBlocs() {
-  // Register your BLoCs here
-  // Example: injector.registerFactory<YourBloc>(() => YourBloc());
+  injector.registerFactory(
+    () => RouteBloc(
+      routeUseCase: injector(),
+      logger: injector(),
+    ),
+  );
+
+  injector.registerFactory(
+    () => WeatherBloc(
+      weatherUseCase: injector(),
+      logger: injector(),
+    ),
+  );
 }
