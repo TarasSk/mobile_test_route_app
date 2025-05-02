@@ -41,7 +41,7 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
               top: Radius.circular(20),
             ),
           ),
-          child: isLoading ? Expanded(child: Center(child: CircularProgressIndicator(),)) : Column(
+          child: isLoading ? Center(child: CircularProgressIndicator()) : Column(
             children: [
               Center(
                 child: Container(
