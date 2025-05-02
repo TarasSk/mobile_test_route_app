@@ -29,7 +29,8 @@ class RouteScreen extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          final polylineCoordinates = context.select<RouteBloc, List<LatLng>>((bloc) {
+          final polylineCoordinates =
+              context.select<RouteBloc, List<LatLng>>((bloc) {
             final state = bloc.state;
             switch (state) {
               case LoadSuccess(:final route):
@@ -48,7 +49,8 @@ class RouteScreen extends StatelessWidget {
                 ),
                 children: [
                   TileLayer(
-                    urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    urlTemplate:
+                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                     userAgentPackageName: 'com.example.app',
                   ),
                   if (polylineCoordinates.isNotEmpty) ...[
@@ -58,6 +60,28 @@ class RouteScreen extends StatelessWidget {
                           points: polylineCoordinates,
                           strokeWidth: 4.0,
                           color: Colors.blue,
+                        ),
+                      ],
+                    ),
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: polylineCoordinates.first,
+                          width: 80,
+                          height: 80,
+                          child: Icon(
+                            Icons.location_on,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        Marker(
+                          point: polylineCoordinates.last,
+                          width: 80,
+                          height: 80,
+                          child: Icon(
+                            Icons.flag,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                         ),
                       ],
                     ),

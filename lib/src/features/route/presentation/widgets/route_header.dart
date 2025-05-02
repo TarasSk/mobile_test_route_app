@@ -63,13 +63,12 @@ class _Loaded extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Close button and title
         Stack(
           children: [
             Align(
               alignment: Alignment.center,
               child: Text(
-                'Route Details', // Title text
+                'Route Details',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -87,11 +86,8 @@ class _Loaded extends StatelessWidget {
             ),
           ],
         ),
-
-        // From/To section
         Row(
           children: [
-            // Origin dot
             Icon(
               Icons.location_on,
               color: Theme.of(context).colorScheme.primary,
@@ -106,7 +102,6 @@ class _Loaded extends StatelessWidget {
           ],
         ),
 
-        // Vertical connector line
         Container(
           width: 1,
           height: 20,
@@ -131,10 +126,8 @@ class _Loaded extends StatelessWidget {
 
         const SizedBox(height: 16),
 
-        // Distance and time chips
         Row(
           children: [
-            // Distance chip
             Chip(
               backgroundColor: colorScheme.surface,
               label: Row(
