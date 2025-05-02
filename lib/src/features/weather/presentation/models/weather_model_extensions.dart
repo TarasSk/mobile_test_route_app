@@ -107,7 +107,6 @@ extension WeatherModelIconExtension on WeatherModel {
           size: 20,
         );
       default:
-        // Neutral icon for undefined or unrecognized descriptions
         return const Icon(Icons.cloud_queue, color: Colors.grey);
     }
   }

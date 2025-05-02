@@ -59,7 +59,6 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
                         ),
                       ),
                     ),
-                    // Route information header
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: const RouteHeader(),

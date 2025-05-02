@@ -45,7 +45,7 @@ class RouteScreen extends StatelessWidget {
             body: Stack(children: [
               FlutterMap(
                 options: MapOptions(
-                  initialCenter: LatLng(50, 10), // Default center
+                  initialCenter: LatLng(50, 10),
                   initialZoom: 4,
                 ),
                 children: [
@@ -70,7 +70,7 @@ class RouteScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 16), // Adjusted padding to align to the top
+                    padding: const EdgeInsets.only(top: 16),
                     child: RouteSelectorWidget(),
                   ),
                 ),
