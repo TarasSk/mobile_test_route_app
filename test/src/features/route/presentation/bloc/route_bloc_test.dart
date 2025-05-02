@@ -37,19 +37,27 @@ void main() {
       expect(routeBloc.state, const RouteState.initial(from: '', to: ''));
     });
 
-    test('emits RouteState.loading and then RouteState.loaded on successful route load', () async {
+    test(
+        'emits RouteState.loading and then RouteState.loaded on successful route load',
+        () async {
       // Arrange
       const from = 'Location A';
       const to = 'Location B';
       final routeParams = RouteUseCaseParams(from: from, to: to);
-     
+
       when(() => mockRouteUseCase.call(routeParams))
           .thenAnswer((_) async => mockRouteEntity);
 
       final weatherParams = WeatherUseCaseParams(lat: 37.7749, lng: -122.4194);
-     
+
       when(() => mockWeatherUseCase.call(weatherParams))
           .thenAnswer((_) async => mockWeatherEntity);
+
+      // Set initial state
+      routeBloc.add(RouteEvent.onFromChanged(from:from));
+      routeBloc.add(RouteEvent.onToChanged(to: to));
+
+      await Future.delayed(Duration.zero); // allow event queue to process
 
       // Act
       routeBloc.add(const RouteEvent.loadRoute());
