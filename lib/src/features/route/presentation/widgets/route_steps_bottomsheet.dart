@@ -12,6 +12,8 @@ class RouteStepsSheet extends StatefulWidget {
       context: ctx,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
+      isDismissible: false,
+      enableDrag: false,
       builder: (context) => BlocProvider.value(
         value: BlocProvider.of<RouteBloc>(ctx),
         child: const RouteStepsSheet(),
@@ -30,9 +32,10 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
       (bloc) => bloc.state is LoadInProgress,
     );
     return DraggableScrollableSheet(
-      initialChildSize: 0.7,
-      minChildSize: 0.3,
-      maxChildSize: 0.9,
+      initialChildSize: 0.5,
+      minChildSize: 0.4,
+      maxChildSize: 0.8,
+      expand: false,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -41,28 +44,30 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
               top: Radius.circular(20),
             ),
           ),
-          child: isLoading ? Center(child: CircularProgressIndicator()) : Column(
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              // Route information header
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: const RouteHeader(),
-              ),
+          child: isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                    // Route information header
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: const RouteHeader(),
+                    ),
 
-              RouteSteps(controller: scrollController)
-            ],
-          ),
+                    RouteSteps(controller: scrollController)
+                  ],
+                ),
         );
       },
     );

@@ -27,7 +27,7 @@ extension RouteStepModelExtension on RouteStepModel {
       case 'ferry-train':
         return const Icon(Icons.directions_boat, color: Colors.teal);
       case 'keep-right':
-       return const Icon(Icons.turn_right, color: Colors.blue);
+        return const Icon(Icons.turn_right, color: Colors.blue);
       case 'keep-left':
         return const Icon(Icons.turn_left, color: Colors.blue);
       default:

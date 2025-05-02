@@ -14,4 +14,9 @@ sealed class RouteState with _$RouteState {
     required String from,
     required String to,
   }) = LoadSuccess;
+  const factory RouteState.error({
+    required String from,
+    required String to,
+    required String message,
+  }) = LoadFailure;
 }

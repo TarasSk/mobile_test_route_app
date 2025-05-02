@@ -3,20 +3,46 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_test/src/features/route/presentation/bloc/route_bloc.dart';
 import 'package:mobile_test/src/features/route/presentation/widgets/route_steps_bottomsheet.dart';
 
-class RouteSelectorWidget extends StatelessWidget {
+class RouteSelectorWidget extends StatefulWidget {
   const RouteSelectorWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final startController = TextEditingController();
-    final endController = TextEditingController();
+  State<RouteSelectorWidget> createState() => _RouteSelectorWidgetState();
+}
 
+class _RouteSelectorWidgetState extends State<RouteSelectorWidget> {
+  late final TextEditingController fromController;
+  late final TextEditingController toController;
+
+  @override
+  void initState() {
+    super.initState();
+    fromController = TextEditingController();
+    toController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    fromController.dispose();
+    toController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.read<RouteBloc>();
     return BlocBuilder<RouteBloc, RouteState>(
       builder: (context, state) {
-        final bloc = context.read<RouteBloc>();
+        final inputs = switch (state) {
+          Initial(:final from, :final to) => (from, to),
+          LoadSuccess(:final from, :final to) => (from, to),
+          _ => (fromController.text, toController.text),
+        };
+        fromController.text = inputs.$1;
+        toController.text = inputs.$2;
 
         return Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Card(
               elevation: 2,
@@ -28,7 +54,7 @@ class RouteSelectorWidget extends StatelessWidget {
                   children: [
                     // Start location field
                     TextField(
-                      controller: startController,
+                      controller: fromController,
                       decoration: InputDecoration(
                         prefixIcon:
                             Icon(Icons.location_on, color: Theme.of(context).colorScheme.primary),
@@ -44,7 +70,7 @@ class RouteSelectorWidget extends StatelessWidget {
 
                     // End location field
                     TextField(
-                      controller: endController,
+                      controller: toController,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.flag, color: Theme.of(context).colorScheme.error),
                         hintText: 'Choose destination',
@@ -58,17 +84,20 @@ class RouteSelectorWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             // Directions button
-            FilledButton(
-              onPressed: () {
-                bloc.add(const RouteEvent.loadRoute());
-                RouteStepsSheet.show(context);
-              },
-              style: FilledButton.styleFrom(
-                minimumSize: const Size(double.infinity, 48),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: FilledButton(
+                onPressed: () {
+                  bloc.add(const RouteEvent.loadRoute());
+                  RouteStepsSheet.show(context);
+                },
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 48),
+                ),
+                child: const Text('Get Directions'),
               ),
-              child: const Text('Get Directions'),
             ),
           ],
         );

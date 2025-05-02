@@ -63,6 +63,30 @@ class _Loaded extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Close button and title
+        Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Route Details', // Title text
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(Icons.close, color: colorScheme.onSurface),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        ),
+
         // From/To section
         Row(
           children: [

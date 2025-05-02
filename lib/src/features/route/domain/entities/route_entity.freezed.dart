@@ -31,16 +31,14 @@ mixin _$RouteEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RouteEntity &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
+            (identical(other.duration, duration) || other.duration == duration) &&
+            (identical(other.distance, distance) || other.distance == distance) &&
             const DeepCollectionEquality().equals(other.steps, steps));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, duration, distance,
-      const DeepCollectionEquality().hash(steps));
+  int get hashCode =>
+      Object.hash(runtimeType, duration, distance, const DeepCollectionEquality().hash(steps));
 
   @override
   String toString() {
@@ -50,8 +48,7 @@ mixin _$RouteEntity {
 
 /// @nodoc
 abstract mixin class $RouteEntityCopyWith<$Res> {
-  factory $RouteEntityCopyWith(
-          RouteEntity value, $Res Function(RouteEntity) _then) =
+  factory $RouteEntityCopyWith(RouteEntity value, $Res Function(RouteEntity) _then) =
       _$RouteEntityCopyWithImpl;
   @useResult
   $Res call({int duration, int distance, List<RouteStepEntity> steps});
@@ -94,9 +91,7 @@ class _$RouteEntityCopyWithImpl<$Res> implements $RouteEntityCopyWith<$Res> {
 
 class _RouteEntity extends RouteEntity {
   const _RouteEntity(
-      {required this.duration,
-      required this.distance,
-      required final List<RouteStepEntity> steps})
+      {required this.duration, required this.distance, required final List<RouteStepEntity> steps})
       : _steps = steps,
         super._();
 
@@ -125,16 +120,14 @@ class _RouteEntity extends RouteEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RouteEntity &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
+            (identical(other.duration, duration) || other.duration == duration) &&
+            (identical(other.distance, distance) || other.distance == distance) &&
             const DeepCollectionEquality().equals(other._steps, _steps));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, duration, distance,
-      const DeepCollectionEquality().hash(_steps));
+  int get hashCode =>
+      Object.hash(runtimeType, duration, distance, const DeepCollectionEquality().hash(_steps));
 
   @override
   String toString() {
@@ -143,10 +136,8 @@ class _RouteEntity extends RouteEntity {
 }
 
 /// @nodoc
-abstract mixin class _$RouteEntityCopyWith<$Res>
-    implements $RouteEntityCopyWith<$Res> {
-  factory _$RouteEntityCopyWith(
-          _RouteEntity value, $Res Function(_RouteEntity) _then) =
+abstract mixin class _$RouteEntityCopyWith<$Res> implements $RouteEntityCopyWith<$Res> {
+  factory _$RouteEntityCopyWith(_RouteEntity value, $Res Function(_RouteEntity) _then) =
       __$RouteEntityCopyWithImpl;
   @override
   @useResult

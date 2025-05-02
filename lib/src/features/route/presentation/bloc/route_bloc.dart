@@ -74,8 +74,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
     switch (state) {
-      case Initial(:final from, :final to)
-          when from.isNotEmpty && to.isNotEmpty:
+      case Initial(:final from, :final to) when from.isNotEmpty && to.isNotEmpty:
       case LoadSuccess(
             :final from,
             :final to,
@@ -83,8 +82,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
           when from.isNotEmpty && to.isNotEmpty:
         emit(const RouteState.loading());
         _loadedCount = 0;
-        final routeEntity =
-            await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
+        final routeEntity = await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
 
         emit(
           RouteState.loaded(
@@ -151,8 +149,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
     }
   }
 
-  Future<Map<String, WeatherModel>> _loadWeatherForSteps(
-      Iterable<RouteStepModel> steps) async {
+  Future<Map<String, WeatherModel>> _loadWeatherForSteps(Iterable<RouteStepModel> steps) async {
     final entries = await Future.wait(
       steps.map((step) async {
         final weather = await _weatherUseCase.call(

@@ -23,18 +23,15 @@ mixin _$RouteStepModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $RouteStepModelCopyWith<RouteStepModel> get copyWith =>
-      _$RouteStepModelCopyWithImpl<RouteStepModel>(
-          this as RouteStepModel, _$identity);
+      _$RouteStepModelCopyWithImpl<RouteStepModel>(this as RouteStepModel, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RouteStepModel &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @override
@@ -48,8 +45,7 @@ mixin _$RouteStepModel {
 
 /// @nodoc
 abstract mixin class $RouteStepModelCopyWith<$Res> {
-  factory $RouteStepModelCopyWith(
-          RouteStepModel value, $Res Function(RouteStepModel) _then) =
+  factory $RouteStepModelCopyWith(RouteStepModel value, $Res Function(RouteStepModel) _then) =
       _$RouteStepModelCopyWithImpl;
   @useResult
   $Res call({String direction, LocationModel location});
@@ -58,8 +54,7 @@ abstract mixin class $RouteStepModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RouteStepModelCopyWithImpl<$Res>
-    implements $RouteStepModelCopyWith<$Res> {
+class _$RouteStepModelCopyWithImpl<$Res> implements $RouteStepModelCopyWith<$Res> {
   _$RouteStepModelCopyWithImpl(this._self, this._then);
 
   final RouteStepModel _self;
@@ -119,10 +114,8 @@ class _RouteStepModel implements RouteStepModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RouteStepModel &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.direction, direction) || other.direction == direction) &&
+            (identical(other.location, location) || other.location == location));
   }
 
   @override
@@ -135,10 +128,8 @@ class _RouteStepModel implements RouteStepModel {
 }
 
 /// @nodoc
-abstract mixin class _$RouteStepModelCopyWith<$Res>
-    implements $RouteStepModelCopyWith<$Res> {
-  factory _$RouteStepModelCopyWith(
-          _RouteStepModel value, $Res Function(_RouteStepModel) _then) =
+abstract mixin class _$RouteStepModelCopyWith<$Res> implements $RouteStepModelCopyWith<$Res> {
+  factory _$RouteStepModelCopyWith(_RouteStepModel value, $Res Function(_RouteStepModel) _then) =
       __$RouteStepModelCopyWithImpl;
   @override
   @useResult
@@ -149,8 +140,7 @@ abstract mixin class _$RouteStepModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$RouteStepModelCopyWithImpl<$Res>
-    implements _$RouteStepModelCopyWith<$Res> {
+class __$RouteStepModelCopyWithImpl<$Res> implements _$RouteStepModelCopyWith<$Res> {
   __$RouteStepModelCopyWithImpl(this._self, this._then);
 
   final _RouteStepModel _self;
