@@ -11,51 +11,74 @@ class RouteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final polylineCoordinates = context.select<RouteBloc, List<LatLng>>((bloc) {
-      final state = bloc.state;
-      switch (state) {
-        case LoadSuccess(:final route):
-          return route.steps.toPolylineCoordinates();
-        default:
-          return [];
-      }
-    });
+    return BlocListener<RouteBloc, RouteState>(
+      listener: (context, state) {
+       switch (state) {
+         case LoadFailure(:final message):
+           Navigator.canPop(context)
+           ? Navigator.pop(context)
+           : null;
+           ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(
+               content: Text(message),
+               backgroundColor: Colors.red,
+             ),
+           );
+           break;
+          default:
+            break;
+        }
+      },
+      child: Builder(
+        builder: (context) {
+          final polylineCoordinates = context.select<RouteBloc, List<LatLng>>((bloc) {
+            final state = bloc.state;
+            switch (state) {
+              case LoadSuccess(:final route):
+                return route.steps.toPolylineCoordinates();
+              default:
+                return [];
+            }
+          });
 
-    return Scaffold(
-      body: Stack(children: [
-        FlutterMap(
-          options: MapOptions(
-            initialCenter: LatLng(51.5107233, 0.0001902), // Default center
-            initialZoom: 4,
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              userAgentPackageName: 'com.example.app',
-            ),
-            if (polylineCoordinates.isNotEmpty) ...[
-              PolylineLayer(
-                polylines: [
-                  Polyline(
-                    points: polylineCoordinates,
-                    strokeWidth: 4.0,
-                    color: Colors.blue,
+          return Scaffold(
+            body: Stack(children: [
+              FlutterMap(
+                options: MapOptions(
+                  initialCenter: LatLng(50, 10), // Default center
+                  initialZoom: 4,
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    userAgentPackageName: 'com.example.app',
                   ),
+                  if (polylineCoordinates.isNotEmpty) ...[
+                    PolylineLayer(
+                      polylines: [
+                        Polyline(
+                          points: polylineCoordinates,
+                          strokeWidth: 4.0,
+                          color: Colors.blue,
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
-            ],
-          ],
-        ),
-        SafeArea(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16), // Adjusted padding to align to the top
-              child: RouteSelectorWidget(),
-            ),
-          ),
-        ),
-      ]),
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16), // Adjusted padding to align to the top
+                    child: RouteSelectorWidget(),
+                  ),
+                ),
+              ),
+            ]),
+          );
+        },
+      ),
     );
   }
 }

@@ -90,6 +90,12 @@ class _RouteSelectorWidgetState extends State<RouteSelectorWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: FilledButton(
                 onPressed: () {
+                  if (fromController.text.isEmpty || toController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please fill in both fields')),
+                    );
+                    return;
+                  }
                   bloc.add(const RouteEvent.loadRoute());
                   RouteStepsSheet.show(context);
                 },

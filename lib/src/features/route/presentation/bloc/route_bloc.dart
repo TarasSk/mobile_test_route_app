@@ -27,6 +27,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
     on<_FromChanged>(_onFromChanged);
     on<_ToChanged>(_onToChanged);
     on<_LoadRoute>(_onLoadRoute);
+    on<_Clear>(_onClear);
   }
 
   final RouteUseCase _routeUseCase;
@@ -43,7 +44,8 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: event.from,
             to: to,
           ),
-        LoadSuccess(:final route, :final weather, :final to) => RouteState.loaded(
+        LoadSuccess(:final route, :final weather, :final to) =>
+          RouteState.loaded(
             route: route,
             weather: weather,
             from: event.from,
@@ -61,7 +63,8 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: from,
             to: event.to,
           ),
-        LoadSuccess(:final route, :final weather, :final from) => RouteState.loaded(
+        LoadSuccess(:final route, :final weather, :final from) =>
+          RouteState.loaded(
             route: route,
             weather: weather,
             from: from,
@@ -74,7 +77,8 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
     switch (state) {
-      case Initial(:final from, :final to) when from.isNotEmpty && to.isNotEmpty:
+      case Initial(:final from, :final to)
+          when from.isNotEmpty && to.isNotEmpty:
       case LoadSuccess(
             :final from,
             :final to,
@@ -82,30 +86,42 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
           when from.isNotEmpty && to.isNotEmpty:
         emit(const RouteState.loading());
         _loadedCount = 0;
-        final routeEntity = await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
+        try {
+          final routeEntity =
+              await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
 
-        emit(
-          RouteState.loaded(
-            route: RouteModel(
-              duration: routeEntity.duration,
-              distance: routeEntity.distance,
-              steps: routeEntity.steps
-                  .map(
-                    (e) => RouteStepModel(
-                      direction: e.direction,
-                      location: LocationModel(
-                        lat: e.location.lat,
-                        lng: e.location.lng,
+          emit(
+            RouteState.loaded(
+              route: RouteModel(
+                duration: routeEntity.duration,
+                distance: routeEntity.distance,
+                steps: routeEntity.steps
+                    .map(
+                      (e) => RouteStepModel(
+                        direction: e.direction,
+                        location: LocationModel(
+                          lat: e.location.lat,
+                          lng: e.location.lng,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
+              ),
+              weather: {},
+              from: from,
+              to: to,
             ),
-            weather: {},
-            from: from,
-            to: to,
-          ),
-        );
+          );
+        } catch (e) {
+          _logger.e('Error loading route $e');
+          emit(
+            RouteState.error(
+              from: from,
+              to: to,
+              message: 'Error loading route',
+            ),
+          );
+        }
 
         if (state
             case LoadSuccess(
@@ -135,11 +151,10 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
           } catch (e) {
             _logger.e('Error fetching weather $e');
             emit(
-              RouteState.loaded(
-                route: route,
-                weather: weather,
+              RouteState.error(
                 from: from,
                 to: to,
+                message: 'Error fetching weather',
               ),
             );
           }
@@ -149,7 +164,13 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
     }
   }
 
-  Future<Map<String, WeatherModel>> _loadWeatherForSteps(Iterable<RouteStepModel> steps) async {
+  void _onClear(_Clear event, Emitter<RouteState> emit) {
+    _loadedCount = 0;
+    emit(const RouteState.initial(from: '', to: ''));
+  }
+
+  Future<Map<String, WeatherModel>> _loadWeatherForSteps(
+      Iterable<RouteStepModel> steps) async {
     final entries = await Future.wait(
       steps.map((step) async {
         final weather = await _weatherUseCase.call(

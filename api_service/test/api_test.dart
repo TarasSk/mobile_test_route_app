@@ -23,24 +23,23 @@ void main() {
       const from = 'New York';
       const to = 'Los Angeles';
 
-      // Create a mock Route object
-      final mockRoute = Route(
-        duration: 120,
-        distance: 100,
-        steps: [
-          RouteStep(
-            direction: 'Head north',
-            location: Location(lat: 40.7128, lng: -74.0060),
-          ),
-          RouteStep(
-            direction: 'Turn left',
-            location: Location(lat: 40.7138, lng: -74.0070),
-          ),
+      final mockRouteJson = {
+        'duration': 120,
+        'distance': 100,
+        'steps': [
+          {
+            'direction': 'Head north',
+            'location': {'lat': 40.7128, 'lng': -74.0060}
+          },
+          {
+            'direction': 'Turn left',
+            'location': {'lat': 40.7138, 'lng': -74.0070}
+          },
         ],
-      );
+      };
 
-      final mockResponse = Response<Route>(
-        data: mockRoute,
+      final mockResponse = Response(
+        data: mockRouteJson,
         statusCode: 200,
         requestOptions: RequestOptions(path: ''),
       );
@@ -52,7 +51,8 @@ void main() {
       expect(response.data, isNotNull);
       expect(response.data, isA<Route>());
       expect(response.data?.steps, isA<List<RouteStep>>());
-      verify(() => mockDio.get('/api/route/New%20York/Los%20Angeles')).called(1);
+      verify(() => mockDio.get('/api/route/New%20York/Los%20Angeles'))
+          .called(1);
     });
 
     test('should throw assertion error for invalid city names', () {
@@ -74,7 +74,10 @@ void main() {
       expect(
         () => api.getRoute(from: from, to: to),
         throwsA(predicate((e) =>
-            e is Exception && e.toString().contains('Failed to fetch route: Connection timeout'))),
+            e is Exception &&
+            e
+                .toString()
+                .contains('Failed to fetch route: Connection timeout'))),
       );
     });
   });
@@ -84,7 +87,10 @@ void main() {
       const lat = 40.7128;
       const lng = -74.0060;
       final mockResponse = Response(
-        data: {'weather': 'mockWeatherData'},
+        data: {
+          'description': 'overcast clouds',
+          'temperature': 16,
+        },
         statusCode: 200,
         requestOptions: RequestOptions(path: ''),
       );
@@ -121,7 +127,8 @@ void main() {
       expect(
         () => api.getWeather(lat: lat, lng: lng),
         throwsA(predicate((e) =>
-            e is Exception && e.toString().contains('Failed to fetch weather: Receive timeout'))),
+            e is Exception &&
+            e.toString().contains('Failed to fetch weather: Receive timeout'))),
       );
     });
   });

@@ -22,27 +22,31 @@ class RouteSteps extends StatelessWidget {
         builder: (context, state) {
           switch (state) {
             case LoadSuccess(:final route):
-              return ListView.builder(
-                controller: _controller,
-                padding: const EdgeInsets.all(16),
-                itemCount: route.steps.length,
-                itemBuilder: (context, index) {
-                  final step = route.steps[index];
-                  final weather = state.weather[step.location.stringKey];
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    color: colorScheme.surface,
-                    child: ListTile(
-                      leading: step.directionIcon,
-                      title: Text(
-                        step.direction,
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                      trailing: WeatherSection(model: weather),
-                    ),
-                  );
-                },
-              );
+              return route.steps.isEmpty
+                  ? const Center(
+                      child: Text('No steps available'),
+                    )
+                  : ListView.builder(
+                      controller: _controller,
+                      padding: const EdgeInsets.all(16),
+                      itemCount: route.steps.length,
+                      itemBuilder: (context, index) {
+                        final step = route.steps[index];
+                        final weather = state.weather[step.location.stringKey];
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          color: colorScheme.surface,
+                          child: ListTile(
+                            leading: step.directionIcon,
+                            title: Text(
+                              step.direction,
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                            trailing: WeatherSection(model: weather),
+                          ),
+                        );
+                      },
+                    );
             default:
               return const Center(
                 child: CircularProgressIndicator(),
