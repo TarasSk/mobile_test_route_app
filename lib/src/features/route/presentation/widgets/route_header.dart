@@ -80,9 +80,8 @@ class _Loaded extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.close, color: colorScheme.onSurface),
                 onPressed: () {
-                 
                   Navigator.of(context).pop();
-                   context.read<RouteBloc>().add(const RouteEvent.clear());
+                  context.read<RouteBloc>().add(const RouteEvent.clear());
                 },
               ),
             ),

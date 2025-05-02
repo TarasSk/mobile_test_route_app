@@ -44,8 +44,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: event.from,
             to: to,
           ),
-        LoadSuccess(:final route, :final weather, :final to) =>
-          RouteState.loaded(
+        LoadSuccess(:final route, :final weather, :final to) => RouteState.loaded(
             route: route,
             weather: weather,
             from: event.from,
@@ -63,8 +62,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
             from: from,
             to: event.to,
           ),
-        LoadSuccess(:final route, :final weather, :final from) =>
-          RouteState.loaded(
+        LoadSuccess(:final route, :final weather, :final from) => RouteState.loaded(
             route: route,
             weather: weather,
             from: from,
@@ -77,8 +75,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
 
   void _onLoadRoute(_LoadRoute event, Emitter<RouteState> emit) async {
     switch (state) {
-      case Initial(:final from, :final to)
-          when from.isNotEmpty && to.isNotEmpty:
+      case Initial(:final from, :final to) when from.isNotEmpty && to.isNotEmpty:
       case LoadSuccess(
             :final from,
             :final to,
@@ -87,8 +84,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
         emit(const RouteState.loading());
         _loadedCount = 0;
         try {
-          final routeEntity =
-              await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
+          final routeEntity = await _routeUseCase.call(RouteUseCaseParams(from: from, to: to));
 
           emit(
             RouteState.loaded(
@@ -169,8 +165,7 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
     emit(const RouteState.initial(from: '', to: ''));
   }
 
-  Future<Map<String, WeatherModel>> _loadWeatherForSteps(
-      Iterable<RouteStepModel> steps) async {
+  Future<Map<String, WeatherModel>> _loadWeatherForSteps(Iterable<RouteStepModel> steps) async {
     final entries = await Future.wait(
       steps.map((step) async {
         final weather = await _weatherUseCase.call(

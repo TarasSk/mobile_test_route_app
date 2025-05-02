@@ -13,18 +13,16 @@ class RouteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<RouteBloc, RouteState>(
       listener: (context, state) {
-       switch (state) {
-         case LoadFailure(:final message):
-           Navigator.canPop(context)
-           ? Navigator.pop(context)
-           : null;
-           ScaffoldMessenger.of(context).showSnackBar(
-             SnackBar(
-               content: Text(message),
-               backgroundColor: Colors.red,
-             ),
-           );
-           break;
+        switch (state) {
+          case LoadFailure(:final message):
+            Navigator.canPop(context) ? Navigator.pop(context) : null;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.red,
+              ),
+            );
+            break;
           default:
             break;
         }

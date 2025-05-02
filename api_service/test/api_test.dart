@@ -51,8 +51,7 @@ void main() {
       expect(response.data, isNotNull);
       expect(response.data, isA<Route>());
       expect(response.data?.steps, isA<List<RouteStep>>());
-      verify(() => mockDio.get('/api/route/New%20York/Los%20Angeles'))
-          .called(1);
+      verify(() => mockDio.get('/api/route/New%20York/Los%20Angeles')).called(1);
     });
 
     test('should throw assertion error for invalid city names', () {
@@ -74,10 +73,7 @@ void main() {
       expect(
         () => api.getRoute(from: from, to: to),
         throwsA(predicate((e) =>
-            e is Exception &&
-            e
-                .toString()
-                .contains('Failed to fetch route: Connection timeout'))),
+            e is Exception && e.toString().contains('Failed to fetch route: Connection timeout'))),
       );
     });
   });
@@ -127,8 +123,7 @@ void main() {
       expect(
         () => api.getWeather(lat: lat, lng: lng),
         throwsA(predicate((e) =>
-            e is Exception &&
-            e.toString().contains('Failed to fetch weather: Receive timeout'))),
+            e is Exception && e.toString().contains('Failed to fetch weather: Receive timeout'))),
       );
     });
   });

@@ -9,5 +9,5 @@ sealed class RouteEvent with _$RouteEvent {
     required String to,
   }) = _ToChanged;
   const factory RouteEvent.loadRoute() = _LoadRoute;
-  const factory RouteEvent.clear() =_Clear;
+  const factory RouteEvent.clear() = _Clear;
 }

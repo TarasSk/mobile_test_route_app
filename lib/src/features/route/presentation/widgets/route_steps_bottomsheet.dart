@@ -63,7 +63,6 @@ class _RouteStepsSheetState extends State<RouteStepsSheet> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: const RouteHeader(),
                     ),
-
                     RouteSteps(controller: scrollController)
                   ],
                 ),
